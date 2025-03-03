@@ -1,0 +1,14 @@
+{
+  // Nodemon'un izleyeceği dizinleri belirtir.
+  // Burada `src` ve `dist` klasörleri izlenmektedir.
+  "watch": ["src", "dist"],
+
+  // Nodemon'un izleyeceği dosya uzantılarını belirler.
+  // Burada `.ts` (TypeScript) ve `.js` (JavaScript) dosyaları izlenmektedir.
+  "ext": "ts,js",
+
+  // Nodemon'un çalıştıracağı komutu belirtir.
+  // Burada `node ./dist/server.js` komutu çalıştırılıyor.
+  // Yani TypeScript dosyaları derlendikten sonra, `dist` klasöründeki `server.js` çalıştırılacak.
+  "exec": "node ./dist/server.js"
+}

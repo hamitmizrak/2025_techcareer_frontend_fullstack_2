@@ -1,0 +1,113 @@
+{
+  "compilerOptions": {
+    /* Bu dosya hakkında daha fazla bilgi için https://aka.ms/tsconfig sayfasını ziyaret edin */
+
+    /* Projeler */
+    // "incremental": true,                              /* Projelerin artımlı derlenmesini sağlamak için .tsbuildinfo dosyalarını kaydedin. */
+    // "composite": true,                                /* Bir TypeScript projesinin proje başvurularıyla birlikte kullanılmasına olanak sağlayan kısıtlamaları etkinleştirin. */
+    // "tsBuildInfoFile": "./.tsbuildinfo",              /* .tsbuildinfo artımlı derleme dosyasının yolunu belirtin. */
+    // "disableSourceOfProjectReferenceRedirect": true,  /* Bileşik projelere başvurulurken bildirim dosyaları yerine kaynak dosyaların tercih edilmesini devre dışı bırak. */
+    // "disableSolutionSearching": true,                 /* Düzenleme sırasında bir projeyi çok projeli başvuru denetiminin dışında tutun. */
+    // "disableReferencedProjectLoad": true,             /* TypeScript tarafından otomatik olarak yüklenen projelerin sayısını azaltın. */
+
+    /* Dil ve Ortam */
+    "target": "es2016",                                  /* Yayılan JavaScript için JavaScript dil sürümünü ayarlayın ve uyumlu kitaplık bildirimlerini ekleyin. */
+    // "lib": [],                                        /* Hedef çalışma zamanı ortamını açıklayan bir paket kitaplık bildirim dosyası kümesi belirtin. */
+    // "jsx": "preserve",                                /* Oluşturulacak JSX kodunu belirtin. */
+    // "libReplacement": true,                           /* Kitaplık değişimini etkinleştir. */
+    // "experimentalDecorators": true,                   /* Eski deneysel dekoratörler için deneysel desteği etkinleştirin. */
+    // "emitDecoratorMetadata": true,                    /* Kaynak dosyalarındaki donatılmış bildirimler için design-type meta verilerini yayın. */
+    // "jsxFactory": "",                                 /* React JSX üretme hedeflenirken kullanılacak JSX fabrika işlevini belirtin; örneğin 'React.createElement' veya 'h'. */
+    // "jsxFragmentFactory": "",                         /* React JSX yayma hedeflenirken parçalar için kullanılacak JSX Parça başvurusunu belirtin, örneğin 'React.Fragment' veya 'Fragment'. */
+    // "jsxImportSource": "",                            /* 'jsx: react-jsx*' kullanırken JSX fabrika işlevlerini içeri aktarmak için kullanılan modül belirticisini belirt. */
+    // "reactNamespace": "",                             /* 'createElement' için çağrılan nesneyi belirtin. Bu, yalnızca 'react' JSX üretme hedeflenirken geçerlidir. */
+    // "noLib": true,                                    /* Varsayılan lib.d.ts dahil olmak üzere kitaplık dosyalarının dahil edilmesini devre dışı bırakın. */
+    // "useDefineForClassFields": true,                  /* ECMAScript-standard-compliant sınıf alanlarını yayın. */
+    // "moduleDetection": "auto",                        /* Modül biçimli JS dosyalarını algılamak için kullanılan yöntemi denetle. */
+
+    /* Modüller */
+    "module": "commonjs",                                /* Oluşturulan modül kodunu belirtin. */
+    // "rootDir": "./",                                  /* Kaynak dosyalarınızda kök klasörü belirtin. */
+    // "moduleResolution": "node10",                     /* TypeScript’in belirli bir modül belirticisinden bir dosyayı nasıl arayacağını belirtin. */
+    // "baseUrl": "./",                                  /* Göreli olmayan modül adlarını çözümlemek için temel dizini belirtin. */
+    // "paths": {},                                      /* İçeri aktarmaları ek arama konumlarına yeniden eşleyen bir girdi kümesi belirtin. */
+    // "rootDirs": [],                                   /* Modüller çözümlenirken birden çok klasörün tek bir klasör olarak işlenmesine izin verin. */
+    // "typeRoots": [],                                  /* './node_modules/@types' gibi davranan birden çok klasör belirt. */
+    // "types": [],                                      /* Bir kaynak dosyada başvurulmadan eklenecek tür paketi adlarını belirtin. */
+    // "allowUmdGlobalAccess": true,                     /* Modüllerden UMD genel değişkenlerine erişmeye izin verin. */
+    // "moduleSuffixes": [],                             /* Bir modül çözümlenirken aranacak dosya adı son eklerinin listesi. */
+    // "allowImportingTsExtensions": true,               /* İçe aktarma işlemlerinin TypeScript dosya uzantılarını içermesine izin verin. '--moduleResolution bundler' ve '--noEmit' veya '--emitDeclarationOnly' ayarını gerektirir. */
+    // "rewriteRelativeImportExtensions": true,          /* '.ts', '.tsx', '.mts' ve '.cts' dosya uzantılarını, çıkış dosyalarındaki JavaScript eşdeğerlerine göreli içeri aktarma yollarında yeniden yazın. */
+    // "resolvePackageJsonExports": true,                /* Paket içe aktarmalarını çözümlerken package.json 'exports' alanını kullanın. */
+    // "resolvePackageJsonImports": true,                /* İçeri aktarmaları çözümlerken package.json dosyasındaki 'imports' alanını kullanın. */
+    // "customConditions": [],                           /* İçe aktarmaları çözümlerken çözümleyiciye özgü varsayılanlara ek olarak ayarlanacak koşullar. */
+    // "noUncheckedSideEffectImports": true,             /* Yan etki içeri aktarmalarını denetleyin. */
+    // "resolveJsonModule": true,                        /* .json dosyalarını içeri aktarmayı etkinleştirin. */
+    // "allowArbitraryExtensions": true,                 /* Bir bildirim dosyasının mevcut olması koşuluyla, herhangi bir uzantıya sahip dosyaların içe aktarılmasını etkinleştirin. */
+    // "noResolve": true,                                /* 'import', 'require' veya '<reference>' ifadelerinin TypeScript'in projeye eklemesi gereken dosya sayısını artırmasına izin verme. */
+
+    /* JavaScript Desteği */
+    // "allowJs": true,                                  /* JavaScript dosyalarının programınızın bir parçası olmasına izin verin. Bu dosyalardan hata almak için 'checkJS' seçeneğini kullanın. */
+    // "checkJs": true,                                  /* Tür denetimli JavaScript dosyalarında hata raporlamayı etkinleştirin. */
+    // "maxNodeModuleJsDepth": 1,                        /* 'node_modules' öğesinden JavaScript dosyaları teslim almak için kullanılan maksimum klasör derinliğini belirtin. Yalnızca 'allowJs' ile geçerlidir. */
+
+    /* Yayımla */
+    // "declaration": true,                              /* Projenizdeki TypeScript ve JavaScript dosyalarından .d.ts dosyaları oluşturun. */
+    // "declarationMap": true,                           /* d.ts dosyaları için kaynak eşlemeleri oluşturun. */
+    // "emitDeclarationOnly": true,                      /* JavaScript dosyalarının değil yalnızca d.ts dosyalarının çıkışını alın. */
+    // "sourceMap": true,                                /* Yayılan JavaScript dosyaları için kaynak eşleme dosyaları oluşturun. */
+    // "inlineSourceMap": true,                          /* Yayılan JavaScript içine kaynak eşleme dosyalarını ekleyin. */
+    // "noEmit": true,                                   /* Derlemeden dosya yayımlamayı devre dışı bırakın. */
+    // "outFile": "./",                                  /* Tüm çıktıları tek bir JavaScript dosyasında paketleyen bir dosya belirt. 'declaration' değeri true ise, tüm .d.ts çıktısını paketleyen bir dosya da belirtir. */
+    // "outDir": "./",                                   /* Tüm yayılan dosyalar için bir çıkış klasörü belirtin. */
+    // "removeComments": true,                           /* Yorumların yayılmasını devre dışı bırakın. */
+    // "importHelpers": true,                            /* tslib’den yardımcı işlevlerin her dosya başına eklenmesi yerine proje başına bir kez içeri aktarılmasına izin verin. */
+    // "downlevelIteration": true,                       /* Yineleme için daha uyumlu, ancak ayrıntılı ve daha düşük performanslı JavaScript yayın. */
+    // "sourceRoot": "",                                 /* Başvuru kaynak kodunu bulmak için hata ayıklayıcıların kök yolunu belirtin. */
+    // "mapRoot": "",                                    /* Hata ayıklayıcının, eşlem dosyalarını üretilen konumlar yerine nerede bulması gerektiğini belirtin. */
+    // "inlineSources": true,                            /* Yayılan JavaScript içindeki kaynak eşlemelerine kaynak kodunu ekleyin. */
+    // "emitBOM": true,                                  /* Çıkış dosyalarının başında bir UTF-8 Bayt Sırası İşareti (BOM) gösterin. */
+    // "newLine": "crlf",                                /* Dosyaları yaymak için yeni satır karakterini ayarlayın. */
+    // "stripInternal": true,                            /* JSDoc açıklamalarında '@internal' olan üretme bildirimlerini devre dışı bırak. */
+    // "noEmitHelpers": true,                            /* Derlenen çıktıda '__extends' gibi özel yardımcı işlevler oluşturmayı devre dışı bırak. */
+    // "noEmitOnError": true,                            /* Herhangi bir tür denetimi hatası bildirildiyse, dosya yaymayı devre dışı bırakın. */
+    // "preserveConstEnums": true,                       /* Oluşturulan kodda 'const enum' bildirimlerinin silinmesini devre dışı bırak. */
+    // "declarationDir": "./",                           /* Oluşturulan bildirim dosyaları için çıkış dizinini belirtin. */
+
+    /* Birlikte Çalışma Kısıtlamaları */
+    // "isolatedModules": true,                          /* Her dosyanın diğer içeri aktarmalara bağlı olmadan güvenli bir şekilde kaynaktan kaynağa derlenebildiğinden emin olun. */
+    // "verbatimModuleSyntax": true,                     /* 'module' ayarına göre çıktı dosyasının formatında yazılmalarını sağlayarak, yalnızca tür olarak işaretlenmemiş hiçbir bir içe aktarma veya dışa aktarma işlemini dönüştürmeyin veya silmeyin. */
+    // "isolatedDeclarations": true,                     /* Diğer araçların geçici olarak bildirim dosyaları oluşturabilmesi için dışarı aktarmalarda yeterli ek açıklama gerektir. */
+    // "erasableSyntaxOnly": true,                       /* ECMAScript'in parçası olmayan çalışma zamanı yapılarına izin verme. */
+    // "allowSyntheticDefaultImports": true,             /* Bir modülün varsayılan dışarı aktarması olmadığında 'import x from y' öğesine izin verin. */
+    "esModuleInterop": true,                             /* CommonJS modüllerini içeri aktarma desteğini kolaylaştırmak için ek JavaScript üret. Bu, tür uyumluluğu için 'allowSyntheticDefaultImports' özelliğini etkinleştirir. */
+    // "preserveSymlinks": true,                         /* Simgesel bağlantıları gerçek yollarına çözümlemeyi devre dışı bırakın. Bu, düğümdeki aynı bayrakla bağıntılıdır. */
+    "forceConsistentCasingInFileNames": true,            /* İçeri aktarmalarda büyük harfe çevirmenin doğru olduğundan emin olun. */
+
+    /* Tür Denetlemesi */
+    "strict": true,                                      /* Tüm katı tür denetleme seçeneklerini etkinleştirin. */
+    // "noImplicitAny": true,                            /* Örtük olarak 'any' türüne sahip ifade ve bildirimlerde hata raporlamayı etkinleştir. */
+    // "strictNullChecks": true,                         /* Tür denetimi sırasında 'null' ve 'undefined' öğelerini hesaba kat. */
+    // "strictFunctionTypes": true,                      /* İşlevler atanırken, parametrelerin ve dönüş değerlerinin alt tür ile uyumlu olduğundan emin olun. */
+    // "strictBindCallApply": true,                      /* 'bind', 'call' ve 'apply' yöntemlerinin bağımsız değişkenlerinin özgün işlevle eşleşip eşleşmediğini denetle. */
+    // "strictPropertyInitialization": true,             /* Bildirilen ancak oluşturucuda ayarlanmamış sınıf özelliklerini denetleyin. */
+    // "strictBuiltinIteratorReturn": true,              /* Yerleşik yineleyiciler, 'any' yerine 'undefined' 'TReturn' türü ile örnekleniyor. */
+    // "noImplicitThis": true,                           /* 'this' için 'any' türü verildiğinde hata raporlamayı etkinleştir. */
+    // "useUnknownInCatchVariables": true,               /* Catch yan tümcesi değişkenlerini varsayılan olarak 'any' yerine 'unknown' olarak kabul et. */
+    // "alwaysStrict": true,                             /* 'use strict' öğesinin her zaman yayıldığından emin olun. */
+    // "noUnusedLocals": true,                           /* Yerel değişkenler okunmadığında hata raporlamayı etkinleştir. */
+    // "noUnusedParameters": true,                       /* İşlev parametresi okunmadığında hata oluştur. */
+    // "exactOptionalPropertyTypes": true,               /* 'undefined' eklemek yerine isteğe bağlı özellik türlerini yazıldıkları gibi yorumlayın. */
+    // "noImplicitReturns": true,                        /* Açıkça bir işlev döndürmeyen kod yolları için hata raporlamayı etkinleştirin. */
+    // "noFallthroughCasesInSwitch": true,               /* Switch deyimlerinde sonraki ifadelere geçiş ile ilgili hataların raporlanmasını etkinleştirin. */
+    // "noUncheckedIndexedAccess": true,                 /* İndis kullanılarak erişildiğinde türe 'undefined' ekle. */
+    // "noImplicitOverride": true,                       /* Türetilmiş sınıflarda geçersiz kılan üyelerin bir geçersiz kılma değiştiricisiyle işaretlendiğinden emin olun. */
+    // "noPropertyAccessFromIndexSignature": true,       /* Dizini oluşturulmuş bir tür kullanılarak bildirilen anahtarlar için dizini oluşturulmuş erişimciler kullanılmasını zorunlu kılar. */
+    // "allowUnusedLabels": true,                        /* Kullanılmayan etiketler için hata raporlamayı devre dışı bırakın. */
+    // "allowUnreachableCode": true,                     /* Ulaşılamaz kod için hata raporlamayı devre dışı bırakın. */
+
+    /* Tamlık */
+    // "skipDefaultLibCheck": true,                      /* TypeScript ile birlikte gelen .d.ts dosyaları için tür denetimini atlayın. */
+    "skipLibCheck": true                                 /* Tüm .d.ts dosyalarında tür denetimini atlayın. */
+  }
+}

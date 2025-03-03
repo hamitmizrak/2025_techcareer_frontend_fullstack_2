@@ -1,0 +1,10 @@
+# Special My Git untrackted
+/node_modules
+
+# Log
+winston_combined.log
+winston_error.log
+
+
+# Mongo DB
+# .env

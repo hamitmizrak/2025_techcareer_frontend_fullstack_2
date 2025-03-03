@@ -1,0 +1,35 @@
+// Aşağıda TypeScript yapılandırma dosyanız (`tsconfig.json`) içindeki tüm seçenekleri ayrıntılı açıklamalar
+// Bu yapılandırma dosyası, TypeScript projelerinde genellikle güvenilir bir başlangıç noktasıdır. Eğer daha özel ihtiyaçlarınız varsa, ek ayarlamalar yapılabilir.
+{
+  "compilerOptions": {
+    // Derlenecek JavaScript sürümünü belirler. ES6 olarak ayarlandı.
+    "target": "ES6", 
+
+    // Modül sistemini belirler. CommonJS olarak ayarlandı. (Node.js projeleri için yaygın kullanılır.)
+    "module": "commonjs",
+
+    // Kaynak dosyaların bulunduğu dizini belirtir. (TypeScript kaynak kodları burada olacak.)
+    "rootDir": "./src",
+
+    // Derlenmiş JavaScript dosyalarının çıkış dizinini belirtir. (Derleme sonucu buraya yazılacak.)
+    "outDir": "./dist",
+
+    // TypeScript'in daha sıkı tip kontrolleri yapmasını sağlar. (Önerilir.)
+    "strict": true,
+
+    // ES modülleri ile CommonJS modüllerinin birlikte çalışmasını sağlar. (Önemli: import/export kullanımını kolaylaştırır.)
+    "esModuleInterop": true,
+
+    // Kütüphane dosyalarının kontrol edilmesini atlar. (Derleme süresini hızlandırır.)
+    "skipLibCheck": true,
+
+    // Dosya isimlerinin büyük/küçük harf tutarlılığını zorunlu kılar. (Önerilir: Farklı işletim sistemlerinde hata önler.)
+    "forceConsistentCasingInFileNames": true
+  },
+  
+  // Proje içine dahil edilecek dosya ve klasörleri belirler. Burada `src` klasörü içindeki tüm dosyalar derlenecek.
+  "include": ["src/**/*"],
+
+  // Derleme dışında tutulacak dosya ve klasörleri belirler. `node_modules` hariç tutulmuş.
+  "exclude": ["node_modules"]
+}
