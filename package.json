@@ -13,7 +13,7 @@
     "dev:start": "tsc && concurrently -k \"tsc -w --pretty\" \"nodemon ./dist/server.js\""
   },
   "keywords": [
-    "Html5, Css3, Js, NodeJS, ES5+,TS, Bootstrap5, EJS"
+    "Html5, Css3, Js, NodeJS, ES5+,TS, Bootstrap5, EJS, jQuery"
   ],
   "author": "MSc Computer Enginner Hamit Mızrak",
   "license": "ISC",

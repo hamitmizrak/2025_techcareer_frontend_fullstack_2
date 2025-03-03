@@ -1,0 +1,383 @@
+/*
+Project made date: 29/01/2025
+Name: Blog
+Semantic Version: v1.0.0
+Description: Blog
+*/
+
+:root {
+    --template-bg: #f9ecec;
+    --template-text-color: #201f1f;
+    --first-navbar-bg: #101111;
+    --max-width: 100%;
+
+    /* Renk Tanımları */
+    --atrasit: #2f2f2f;
+    --blue: #007bff;
+    --indigo: #6610f2;
+    --purple: #6f42c1;
+    --pink: #e83e8c;
+    --red: #dc3545;
+    --orange: #fd7e14;
+    --yellow: #ffc107;
+    --green: #28a745;
+    --teal: #20c997;
+    --cyan: #17a2b8;
+    --white: #fff;
+    --gray: #6c757d;
+    --gray-dark: #343a40;
+    --primary: #007bff;
+    --secondary: #6c757d;
+    --success: #28a745;
+    --info: #17a2b8;
+    --warning: #ffc107;
+    --danger: #dc3545;
+    --light: #f8f9fa;
+    --dark: #343a40;
+}
+
+/*############################################################################################################## */
+/* #### Ana Navbar (navbar_second) ############################################################################# */
+/* #### Genel Özellikler #### */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 15px;
+}
+
+body {
+    background-color: var(--atrasit);
+    color: var(--light);
+    font-size: 1.2rem;
+    line-height: 1.7;
+    position: relative;
+    padding-top: 110px; /* 50px+60px=110px navbar_first height:50px+ navbar_second height: 60px calc(50+60); */
+    font-family: "Roboto", sans-serif;
+}
+
+a {
+    text-decoration: none;
+}
+
+ul {
+    list-style: none;
+}
+
+p {
+    text-align: justify;
+    margin: 2rem 0.9rem;
+    font-size: 1.2rem;
+    font-weight: 300;
+    font-family: "Lucida Sans", Geneva, Verdana, sans-serif;
+    color: var(--dark) !important;
+}
+
+i {
+    font-size: 1rem;
+    opacity: 0.9;
+}
+
+img {
+    max-width: var(--max-width);
+    height: auto;
+    display: block;
+}
+
+img:hover {
+    cursor: pointer;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
+    transition: box-shadow 0.3s ease-in-out;
+    opacity: 0.8;
+    transition: 3s all;
+}
+
+/* #### Line Clamp (Metin Kısaltma) #### */
+.line-clamp4,
+.line-clamp8,
+.line-clamp10,
+.line-clamp20 {
+    display: -webkit-box;
+    overflow: hidden;
+    -webkit-box-orient: vertical;
+}
+
+.line-clamp4 {
+    -webkit-line-clamp: 4;
+}
+
+.line-clamp8 {
+    -webkit-line-clamp: 8;
+}
+
+.line-clamp10 {
+    -webkit-line-clamp: 10;
+}
+
+.line-clamp20 {
+    -webkit-line-clamp: 20;
+}
+
+/*############################################################################################################## */
+/* #### Ana Navbar (navbar_second) ############################################################################# */
+/* #### Üst Navbar (navbar_first) #### */
+#navbar_first {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 50px; /* Navvar first height */
+    z-index: 1000;
+    padding: 0.8rem 0;
+    color: var(--white);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    border-bottom: 1px solid #ddd;
+    background: linear-gradient(to right, #4b3737, #1c1c1c);
+    /* display: none !important ; */
+    display: flex;
+    align-items: center;
+
+}
+
+#navbar_first .container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+/* Sol (İletişim) */
+#first_left ul {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+/* Sağ (Login/Register/Admin) */
+#first_right {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+/* Navbar Linkleri */
+#navbar_first a {
+    color: var(--white);
+    font-size: 1.3rem;
+    transition: all 0.3s ease-in-out;
+    padding: 0.5rem;
+    border-radius: 50%;
+}
+
+#navbar_first a:hover {
+    color: var(--primary);
+    background: rgba(255, 255, 255, 0.1);
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+    transform: scale(1.1);
+}
+
+/* Soft Glow Efektli İkonlar */
+.nav-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.nav-icon:hover {
+    background: rgba(255, 255, 255, 0.2);
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+}
+
+/* #### Ana Navbar (navbar_second) ############################################################################# */
+#navbar_second {
+    position: fixed;
+    top: 50px;
+    left: 0;
+    width: 100%;
+    /* height: 60px; Navbar second height */
+    z-index: 1;
+    background-color: var(--dark);
+    transition: top 0.3s ease-in-out;
+}
+
+.nav-hover {
+    transition: 0.3s ease-in-out;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+}
+
+.nav-hover:hover {
+    color: var(--warning) !important;
+    background: rgba(255, 255, 255, 0.1);
+    transform: scale(1.05);
+}
+
+.nav-collapse ul{
+    background-color:#1c1c1c ;
+}
+
+/* Dropdown Animasyonu */
+.animate-dropdown {
+    animation: fadeIn 0.3s ease-in-out;
+    border-radius: 8px;
+    padding: 0.5rem;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(5px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Arama Kutusu */
+.search-input {
+    border-radius: 25px;
+    padding: 0.6rem 1rem;
+    border: 1px solid var(--gray-dark);
+    transition: border-color 0.3s ease-in-out;
+}
+
+.search-input:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 8px rgba(0, 123, 255, 0.5);
+}
+
+.search-btn {
+    border-radius: 25px;
+    padding: 0.6rem 1.5rem;
+    transition: 0.3s;
+}
+
+.search-btn:hover {
+    background-color: var(--warning);
+    color: #000;
+    transform: scale(1.05);
+}
+/*############################################################################################################## */
+/* #### Header ############################################################################################## */
+header {
+    background-image: url("../pictures/header.jpg");
+    background-size: cover;
+    background-position: 50% 50%;
+    z-index: -1;
+    height: 55vh;
+    padding-top: 12rem;
+}
+
+/*############################################################################################################## */
+/* #### Main############################################################################# */
+
+/* our icon */
+#out_icon {
+    margin-top: 3.5rem;
+    margin-bottom: 3rem;
+}
+
+#out_icon .message i {
+    font-size: 5rem;
+    margin-bottom: 0.8rem;
+    opacity: 0.8;
+}
+
+#out_icon p {
+    color: var(--light) !important;
+}
+
+/* Newspaper */
+#newspaper {
+    background-color: var(--light);
+    padding: 9rem;
+    padding: 6rem 3rem 4rem 3rem;
+}
+
+#newspaper_p:hover {
+    opacity: 0.8;
+    transition: 4s all;
+    background-color: var(--blue)!important;
+    color: var(--white)!important;
+}
+
+/* blog */
+#blog {
+    /* background-color: var(--light); */
+    padding: 1rem;
+}
+
+#card_body {
+    box-shadow: 0px 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
+
+#card_body:hover {
+    -webkit-box-shadow: 20px 18px 42px -17px rgba(66, 68, 90, 1);
+    -moz-box-shadow: 20px 18px 42px -17px rgba(66, 68, 90, 1);
+    box-shadow: 20px 18px 42px -17px rgba(66, 68, 90, 1);
+    transition: 3s all;
+}
+
+.card-img-top {
+    width: 100%;
+    height: 25rem !important;
+    object-fit: cover;
+}
+
+/* #### Mobil Uyumluluk (Card) #### */
+/* 1<=X<=767 */
+@media screen and (min-width: 1px) {
+    #card_body {
+        width: 100% !important;
+    }
+
+}
+
+/* 768<=X<=1199 */
+@media screen and (min-width: 768px) {
+    #card_body {
+        width: 49% !important;
+    }
+}
+
+
+/* 900<=X<=1199 */
+@media screen and (min-width: 900px) {
+    #card_body {
+        width: 32% !important;
+    }
+}
+
+/* x>=1200 */
+@media screen and (min-width: 1200px) {
+    #card_body {
+        width: 24% !important;
+    }
+}
+
+/*############################################################################################################## */
+/* #### Footer ############################################################################# */
+
+/*############################################################################################################## */
+/* #### Back to Top  ############################################################################# */
+#back_top {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    width: 3rem;
+    margin-right: 0.5rem;
+    margin-bottom: 0.5rem;
+    opacity: 0.9;
+}
+
+#back_top:hover {
+    opacity: 0.6;
+}

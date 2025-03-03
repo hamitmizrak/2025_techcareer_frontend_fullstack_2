@@ -1,7 +1,17 @@
 # Techcareer Node.js 
 [Github Linki](https://github.com/hamitmizrak/2025_techcareer_frontend_fullstack_2)
+
+git clone https://github.com/hamitmizrak/2025_techcareer_frontend_fullstack_2
 ---
 
+[Html5 Tutorials](https://www.w3schools.com/html/)
+[Css3 Tutorials](https://www.w3schools.com/css/default.asp)
+[JS Tutorials](https://www.w3schools.com/js/default.asp)
+[JQuery Tutorials](https://www.w3schools.com/jquery/default.asp)
+[TS Tutorials](https://www.w3schools.com/typescript/index.php)
+[GIT Tutorials](https://www.w3schools.com/git/default.asp)
+
+---
 [Mongo Database Cloud](https://www.mongodb.com/products/platform/cloud)
 [Mongo Database Download](https://www.mongodb.com/try/download/community)
 [Font Awesome](https://fontawesome.com/search?ic=free)
