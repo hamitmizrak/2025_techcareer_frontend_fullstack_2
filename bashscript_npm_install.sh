@@ -1,4 +1,4 @@
-#!/bin/bash
+!/bin/bash
 
 # Shebang Betiğin Bash kabuğu ile çalışacağını gösterir.
 # bin/bash: names
@@ -54,7 +54,7 @@ file_mvc() {
     echo -e "\n\e[36m\n###### MVC için dosya yapıları ######\e[0m"
     echo -e "\e[33mMVC için dosya yapıları yüklemek ister misiniz? [e/h]\e[0m"
     # read -p "" mvc  # Kullanıcı girişini devre dışı bırak
-    mvc="h"          # Otomatik olarak evet değerini ata
+    mvc="e"          # Otomatik olarak evet değerini ata
 
     if [[ "$mvc" == "e" || "$mvc" == "E" ]]; then
         echo -e "\e[32mMVC için dosya yapıları...\e[0m"
@@ -128,7 +128,7 @@ create_empty_files_if_not_exists() {
     echo -e "\e[36m\n###### ${PACKAGE} ######  \e[0m"
     echo -e "\e[33mGenel Dosyaları Yüklemek İster misiniz ? e/h\e[0m"
     # read -p "" packageResult  # Kullanıcı girişini devre dışı bırak
-    packageResult="h"          # Otomatik olarak evet değerini ata
+    packageResult="e"          # Otomatik olarak evet değerini ata
     if [[ $packageResult == "e" || $packageResult == "E" ]]; then
         echo -e "\e[32mpackage Yüklenmeye başlandı ...\e[0m"
 
@@ -164,7 +164,7 @@ index_html_install() {
     echo -e "\e[36m\n###### index.html Kurulumu ######\e[0m"
     echo -e "\e[33mindex.html dosyasını yüklemek ister misiniz? [e/h]\e[0m"
     # read -p "" indexResult
-    indexResult="h"
+    indexResult="e"
 
     if [[ "$indexResult" == "e" || "$indexResult" == "E" ]]; then
         echo -e "\e[32mindex.html yüklenmeye başlıyor...\e[0m"
@@ -295,7 +295,7 @@ gitignore_install() {
     echo -e "\n\e[36m\n###### gitignore Kurulumu ######\e[0m"
     echo -e "\e[33mgitignore yüklemek ister misiniz? [e/h]\e[0m"
     # read -p "" gitignore
-    gitignore="h"
+    gitignore="e"
 
     if [[ "$gitignore" == "e" || "$gitignore" == "E" ]]; then
         echo -e "\e[32mgitignore yüklenmeye başlıyor...\e[0m"
@@ -335,7 +335,7 @@ package_json() {
     echo -e "\n\e[36m\n###### ${PACKAGE_JSON} ######  \e[0m"
     echo -e "\e[33mPackage.json Yüklemek İster misiniz ? e/h\e[0m"
     # read -p "" packageJsonResult
-    packageJsonResult="h"
+    packageJsonResult="e"
     if [[ $packageJsonResult == "e" || $packageJsonResult == "E" ]]; then
         echo -e "\e[32mpackage Json Yüklenmeye başlandı ...\e[0m"
 
@@ -424,7 +424,7 @@ npm_local_save() {
     echo -e "\n\e[36m\n###### ${NPM_SAVE} ######  \e[0m"
     echo -e "\e[33mNpm Paketlerini Yüklemek İster misiniz ? e/h\e[0m"
     # read -p "" npmSaveResult
-    npmSaveResult="h"
+    npmSaveResult="e"
     if [[ $npmSaveResult == "e" || $npmSaveResult == "E" ]]; then
         echo -e "\e[32mNpm Save Yüklenmeye başlandı ...\e[0m"
 
@@ -459,7 +459,7 @@ npm_local_dev_sav() {
     echo -e "\n\e[36m\n###### ${NPM_SAVE_DEV} ######  \e[0m"
     echo -e "\e[33mnpm Save-Dev Paketlerini Yüklemek İster misiniz ? e/h\e[0m"
     # read -p "" npmDevSaveResult
-    npmDevSaveResult="h"
+    npmDevSaveResult="e"
     if [[ $npmDevSaveResult == "e" || $npmDevSaveResult == "E" ]]; then
         echo -e "\e[32mNpm Dev-Save Yüklenmeye başlandı ...\e[0m"
 
@@ -497,7 +497,7 @@ npm_global_save() {
     echo -e "\n\e[36m\n###### ${NPM_GLOBAL} ######  \e[0m"
     echo -e "\e[33mnpm Global  Paketlerini Yüklemek İster misiniz ? e/h\e[0m"
     # read -p "" npmGlobalResult
-    npmGlobalResult="h"
+    npmGlobalResult="e"
     if [[ $npmGlobalResult == "e" || $npmGlobalResult == "E" ]]; then
         echo -e "\e[32mNpm Global Yüklenmeye başlandı ...\e[0m"
 
@@ -534,7 +534,7 @@ typescript_install() {
     echo -e "\n\e[36m###### TypeScript Kurulumu ######\e[0m"
     echo -e "\e[33mTypeScript yüklemek ister misiniz? [e/h]\e[0m"
     # read -r typescriptResult
-    typescriptResult="h"
+    typescriptResult="e"
     if [[ "$typescriptResult" == "e" || "$typescriptResult" == "E" ]]; then
         echo -e "\e[32mTypeScript yüklenmeye başlıyor...\e[0m"
 
@@ -634,7 +634,7 @@ nodemon_install() {
     echo -e "\n\e[36m\n###### Nodemon Kurulumu ######\e[0m"
     echo -e "\e[33mNodemon yüklemek ister misiniz? [e/h]\e[0m"
     # read -p "" nodemonResult
-    nodemonResult="h"
+    nodemonResult="e"
 
     if [[ "$nodemonResult" == "e" || "$nodemonResult" == "E" ]]; then
         echo -e "\e[32mNodemon yüklenmeye başlıyor...\e[0m"
@@ -676,7 +676,7 @@ npm_update() {
     echo -e "\e[36m\n###### ${NPM_UPDATE} ######  \e[0m"
     echo -e "\e[33mnpm Update  Paketlerini Yüklemek İster misiniz ? e/h\e[0m"
     # read -p "" npmUpdateResult
-    npmUpdateResult="h"
+    npmUpdateResult="e"
     if [[ $npmUpdateResult == "e" || $npmUpdateResult == "E" ]]; then
         echo -e "\e[32mNpm Global Yüklenmeye başlandı ...\e[0m"
 
@@ -703,7 +703,7 @@ npm_compiler() {
     echo -e "\e[36m\n###### ${NPM_COMPILER} ######  \e[0m"
     echo -e "\e[33mnpm Compiler Paketlerini Yüklemek İster misiniz ? e/h\e[0m"
     # read -p "" npmCompilerResult
-    npmCompilerResult="h"
+    npmCompilerResult="e"
     if [[ $npmCompilerResult == "e" || $npmCompilerResult == "E" ]]; then
         echo -e "\e[32mNpm Compiler Yüklenmeye başlandı ...\e[0m"
 
@@ -726,7 +726,7 @@ package_json_script_added() {
     echo -e "\e[36m\n###### package.json Script ekle ######  \e[0m"
     echo -e "\e[33mpackage.json script eklemek Yüklemek İster misiniz? e/h\e[0m"
     # read -p "" packageJsonScriptResult
-    packageJsonScriptResult="h"
+    packageJsonScriptResult="e"
     if [[ $packageJsonScriptResult == "e" || $packageJsonScriptResult == "E" ]]; then
         echo -e "\e[32m package.json Script Yüklenmeye başlandı...\e[0m"
         # package.json dosyasının varlığını kontrol et
@@ -815,7 +815,7 @@ mongo_env() {
     echo -e "\e[36m\n###### ${MONGO_ENV} ######  \e[0m"
     echo -e "\e[33mMongo için .env oluşturulsun mu ? e/h\e[0m"
     # read -p "" mongoEnvResult
-    mongoEnvResult="h"
+    mongoEnvResult="e"
     if [[ $mongoEnvResult == "e" || $mongoEnvResult == "E" ]]; then
         echo -e "\e[32mMongoENV ...\e[0m"
 
@@ -1043,7 +1043,7 @@ git_push() {
     echo -e "\e[36m\n###### ${GIT} ######  \e[0m"
     echo -e "\e[33mGit Yüklemek İster misiniz ? e/h\e[0m"
     # read -p "" gitResult
-    gitResult="h"
+    gitResult="e"
     if [[ $gitResult == "e" || $gitResult == "E" ]]; then
         echo -e "\e[32mGit Yüklenmeye başlandı ...\e[0m"
 
