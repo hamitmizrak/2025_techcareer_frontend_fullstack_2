@@ -14,6 +14,8 @@ npm run dev:start
 [TS Tutorials](https://www.w3schools.com/typescript/index.php)
 [GIT Tutorials](https://www.w3schools.com/git/default.asp)
 
+[Emmet IO](https://docs.emmet.io/cheat-sheet/)
+
 ---
 [Mongo Database Cloud](https://www.mongodb.com/products/platform/cloud)
 [Mongo Database Download](https://www.mongodb.com/try/download/community)
