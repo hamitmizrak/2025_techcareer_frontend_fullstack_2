@@ -31,20 +31,24 @@ $(document).ready(function () {
   /////////////////////////////////////////////////////////////////////////////////
   // Content Length Control
   // Blog içerik harf sınırı kontrolü eden fonksiyon
-  const updateCharCount =()=>{
+  const updateCharCount = () => {
     const content = $("#content").val(); // Blog Formunda ki Content(İçerik) alanını al
-    const charCount= content.length;// Content(İçerik) alanındaki karakter sayısını al
-    const remaingContentChars= maxCharacters-charCount; //Kalan harf sayısı göster
-    $("#char-count").text(`Kalan Harf sayısınız: ${remaingContentChars}`);// Kalan harf sayısını labelde göster
+    const charCount = content.length; // Content(İçerik) alanındaki karakter sayısını al
+    const remaingContentChars = maxCharacters - charCount; //Kalan harf sayısı göster
+    $("#char-count").text(`Kalan Harf sayısınız: ${remaingContentChars}`); // Kalan harf sayısını labelde göster
 
     // Kalan Harf sayısı 0'dan küçükse,Karakter sınırını aştınız
-    if(remaingContentChars<0){
+    if (remaingContentChars < 0) {
       $("#char-count").removeClass("text-success").addClass("text-danger");
-      showError("#content","Karakter sınırını aştınız. En fazla 2000 karakter girebilirsiniz.");
-  } else {
-    $("#char-count").removeClass("text-danger").addClass("text-success");
-    $(".error-message").remove();
-  }
+      showError(
+        "#content",
+        "Karakter sınırını aştınız. En fazla 2000 karakter girebilirsiniz."
+      );
+    } else {
+      $("#char-count").removeClass("text-danger").addClass("text-success");
+      $(".error-message").remove();
+    }
+  };
 
   /////////////////////////////////////////////////////////////////////////////////
   // VALIDATION
