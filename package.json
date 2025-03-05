@@ -18,6 +18,7 @@
   "author": "MSc Computer Enginner Hamit Mızrak",
   "license": "ISC",
   "dependencies": {
+    "2025_techcareer_frontend_fullstack_2": "file:",
     "body-parser": "^1.20.3",
     "compression": "^1.7.5",
     "cookie-parser": "^1.4.7",
@@ -50,4 +51,3 @@
     "typescript": "^5.7.3"
   }
 }
-
