@@ -568,6 +568,20 @@ npm install  nodemon --save-dev
 ```
 ---
 
+
+## Json-Server
+```sh
+
+```
+---
+
+## Babel
+```sh
+
+```
+---
+
+
 ## .env
 ```sh
 ; PORT
