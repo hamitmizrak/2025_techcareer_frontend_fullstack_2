@@ -1,4 +1,7 @@
 console.log("server.ts");
+// Import
+import dotenv from "dotenv";
+dotenv.config();
 
 // Express is a web application framework for Node.js
 const express = require("express");
@@ -13,7 +16,7 @@ response.send("Blog Sayfası!");
 }); // End of app.get
 
 // Sunucu start
-const PORT=1111;
+const PORT=process.env.LOCALHOST_PORT || 1111;
 app.listen(PORT, () => {
   console.log(`Server is listening on port http://localhost:${PORT}`);
 });
