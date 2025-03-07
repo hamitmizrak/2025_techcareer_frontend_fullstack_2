@@ -41,11 +41,13 @@
 
     <p><%= csrfToken %></p>
 
-form#blog-form[action="/blog" method="get" name="blog-form"]>\n
+<!-- form#blog-form[action="/blog" method="get" name="blog-form"]>\n
 input#_csrf[type="hidden" name="_csrf" value="<%= csrfToken %>"]+\n
 div.form-group.mb-3>span[for="header"].form-label{HEADER}+\n
-input#header.form-control[type="text" name="header" placeholder="blog başlığı" title="blog başlığı" autofocus]
+input#header.form-control[type="text" name="header" placeholder="blog başlığı" title="blog başlığı" autofocus] -->
 
+<!-- h3.text-center.mt-4.mb-4.text-primary.display-5.text-uppercase{Blog Form} -->
+ <h3 class="text-center mt-4 mb-4 text-primary display-5 text-uppercase">Blog Form</h3>
     <!-- form#blog-form>input#_csrf+(div.form-group.mb-3>span#id(id$){Content-$}+(input.form-control#header))*4 -->
     <form action="/blog" method="get" id="blog-form" name="blog-form">
 
