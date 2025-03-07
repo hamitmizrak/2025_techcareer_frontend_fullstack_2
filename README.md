@@ -5,8 +5,9 @@
 ## git clone https://github.com/hamitmizrak/2025_techcareer_frontend_fullstack_2
 
 ### Npm Start
-> npm run dev:start
-> json-server --watch db.json --port 3000
+> npm run dev:start (json-server olmadan)
+> json-server --watch db.json --port 3000 (Sadece json-server çalıştır)
+> npm run dev:start:json-server
 
 ## Tutorials Link
 
@@ -991,6 +992,69 @@ Bu şekilde, **JSON-Server'ı port 4000 üzerinde çalıştırabilirsiniz.**
 ✅ JSON-Server, **hızlı, kolay ve konfigürasyonsuz bir şekilde sahte API oluşturmak için mükemmel bir araçtır**.  
 ✅ **Backend yazmadan** API çağrıları yapabilir, CRUD işlemleri gerçekleştirebilir, filtreleme ve sıralama gibi gelişmiş özellikleri kullanabilirsiniz.  
 ✅ **Frontend geliştiricileri, mobil uygulama geliştiricileri ve test mühendisleri** için **ideal bir çözümdür**. 🚀
+
+## db.json Config
+
+```sh
+
+```
+JSON Server için `db.json` dosyanız sadece `"blogs": []` içeriğine sahip. JSON Server'ı konfigüre etmek için bir `json-server.json` dosyası oluşturabilir veya doğrudan komut satırında parametreler belirtebilirsiniz.
+
+Önerilen yöntem, bir `json-server.json` konfigürasyon dosyası eklemektir:
+
+### 1. **json-server.json Konfigürasyonu**
+Bu dosyayı proje dizinine ekleyin:
+
+```json
+{
+  "port": 5000,
+  "host": "localhost",
+  "delay": 1000,
+  "routes": {
+    "/api/blogs": "/blogs"
+  }
+}
+```
+
+Bu ayarlar:
+- Sunucunun **5000** portunda çalışmasını sağlar.
+- **localhost** üzerinden erişimi sınırlar.
+- API isteklerine **1 saniyelik gecikme (delay)** ekler (test ortamı için faydalıdır).
+- **RESTful route mapping** ile `/api/blogs` isteklerini `/blogs` içine yönlendirir.
+
+### 2. **db.json Güncellemesi**
+Eğer JSON Server için başlangıç verisi eklemek isterseniz, `db.json` dosyanızı şu şekilde genişletebilirsiniz:
+
+```json
+{
+  "blogs": [
+    {
+      "id": 1,
+      "title": "İlk Blog",
+      "content": "Bu bir test blog içeriğidir.",
+      "author": "Yazar Adı"
+    }
+  ]
+}
+```
+
+### 3. **JSON Server’ı Çalıştırma**
+Eğer yukarıdaki `json-server.json` dosyasını oluşturduysanız, aşağıdaki komutla JSON Server'ı başlatabilirsiniz:
+
+```sh
+json-server --watch db.json
+```
+
+Eğer config dosyası olmadan manuel port belirlemek isterseniz:
+
+```sh
+json-server --watch db.json --port 5000
+```
+
+Bu şekilde JSON Server, `db.json` dosyanızdan veri çekerek belirttiğiniz portta çalışır. İhtiyacınıza göre daha fazla ayar ekleyebilirim! 🚀
+
+---
+
 
 ## Babel
 
