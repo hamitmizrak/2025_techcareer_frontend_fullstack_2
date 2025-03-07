@@ -53,6 +53,37 @@ $(document).ready(function () {
   /////////////////////////////////////////////////////////////////////////////////
   // VALIDATION
   // Blog Form Kontrol Doğrulama(Validation)
+  const validateForm = () => {
+    clearErrors(); // Hata mesajlarını temizle
+    let isValid = true; // Form doğrulama kontrolü
+    const header = $("#header").val().trim(); // Blog Formunda ki Content(İçerik) alanını al
+    const title = $("#title").val().trim(); // Blog Formunda ki Title(Başlık) alanını al
+    const content = $("#content").val().trim(); // Blog Formunda ki Content(İçerik) alanını al
+    const charCount = content.length; // Content(İçerik) alanındaki karakter sayısını al
+
+    // HEADER
+    if (header === "") {
+      showError("#header", "Başlık alanı boş bırakılamaz.");
+      isValid = false;
+    } else {
+      showValid("#header", "Başlık alanı geçerli.");
+    }
+
+    // CONTENT
+    if (content === "") {
+      showError("#content", "İçerik alanı boş bırakılamaz.");
+      isValid = false;
+    } else if (charCount > maxCharacters) {
+        showError("#content", "İçerik alanı 2000 karakter fazla olamaz.");
+        isValid = false;
+    } else {
+      showValid("#header", "İçerik alanı geçerli.");
+    }
+
+    // AUTHOR
+
+    return isValid;
+  };
 
   /////////////////////////////////////////////////////////////////////////////////
   // Kullanıcı Blog Content(İçerik) alanına yazdıkça geriye kalan karakter sayısını güncelleyen
