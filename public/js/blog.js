@@ -186,6 +186,23 @@ $(document).ready(function () {
     } //end else
   }); //end Blog Ekleme
 
+  // Html tablosundaki ("#blog-table tbody") satırı Düzenle butonuna tıkladığımızda
+  // Formu doldursun
+  $("#blog-table tbody").on("click", ".edit-btn", function () {
+    const row = $(this).closest("tr");
+    const id = row.data("id");
+    $("#header").val(row.find("td:eq(1)").text());
+    $("#content").val(row.find("td:eq(2)").text());
+    $("#author").val(row.find("td:eq(3)").text());
+    $("#tags").val(row.find("td:eq(4)").text());
+
+    isUpdating = true;
+    // 1.YOL
+    updateId = id;
+    // 2.YOL (Local Storage)
+    $("#submit-btn").text("Güncelle");
+  });
+
   // Blog List
   const fetchBlogList = () => {
     $.ajax({
@@ -217,8 +234,7 @@ $(document).ready(function () {
   }; // end fetchBlogList
 
   // Blog Bulma
-  // Blog Güncelleme
-
+  
   // Blog Silme
   $("#blog-table tbody").on("click", ".delete-btn", function () {
     const deleteId = $(this).closest("tr").data("id");
