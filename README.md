@@ -7,7 +7,7 @@
 ### Npm Start
 > npm run dev:start (json-server olmadan)
 > json-server --watch db.json --port 3000 (Sadece json-server çalıştır)
-> npm run dev:start:json-server
+> npm run dev:tsc:nodemon:json-server
 
 ## Tutorials Link
 
