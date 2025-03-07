@@ -1,0 +1,3 @@
+Comment  : Ctrl+K
+UnComment: Ctrl+K
+Beautify : Shift+Alt+F

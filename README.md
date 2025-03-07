@@ -270,6 +270,7 @@ Default
   "author": "MSc Computer Enginner Hamit Mızrak",
   "license": "ISC",
   "dependencies": {
+    "2025_techcareer_frontend_fullstack_2": "file:",
     "body-parser": "^1.20.3",
     "compression": "^1.7.5",
     "cookie-parser": "^1.4.7",
@@ -279,6 +280,8 @@ Default
     "express": "^4.21.2",
     "express-rate-limit": "^7.5.0",
     "helmet": "^8.0.0",
+    "jquery": "^3.7.1",
+    "json-server": "^1.0.0-beta.3",
     "mongodb": "^6.13.0",
     "mongoose": "^8.10.0",
     "morgan": "^1.10.0",
@@ -287,6 +290,10 @@ Default
     "winston": "^3.17.0"
   },
   "devDependencies": {
+    "@babel/cli": "^7.26.4",
+    "@babel/core": "^7.26.9",
+    "@babel/preset-env": "^7.26.9",
+    "@types/jquery": "^3.5.32",
     "@types/node": "^22.13.1",
     "concurrently": "^9.1.2",
     "cross-env": "^7.0.3",
@@ -295,6 +302,7 @@ Default
     "eslint-config-prettier": "^10.0.1",
     "eslint-plugin-prettier": "^5.2.3",
     "lite-server": "^2.6.1",
+    "live-server": "^1.2.2",
     "nodemon": "^3.1.9",
     "npm-run-all": "^4.1.5",
     "prettier": "^3.4.2",
@@ -575,11 +583,519 @@ npm install  nodemon --save-dev
 ```
 ---
 
+## **JSON-Server Nedir?**
+### **📌 JSON-Server, hızlı ve kolay bir şekilde REST API oluşturmaya yarayan, Node.js tabanlı bir geliştirme aracıdır.**
+- JSON verilerini kullanarak **gerçek bir API** gibi çalışan sahte (mock) bir RESTful servis oluşturur.
+- **Backend geliştirme olmadan** veritabanı gibi kullanılabilir.
+- **Frontend geliştiricileri**, hızlı API erişimi ve CRUD işlemleri (Create, Read, Update, Delete) için kullanabilir.
+- **Test ortamı, prototipleme ve hızlı geliştirme süreçlerinde** oldukça faydalıdır.
+
+---
+
+## **🚀 JSON-Server Neden Kullanılır?**
+1. **Hızlı ve Kolay API Oluşturma**  
+   - JSON formatında bir dosya hazırlandığında, **JSON-Server** bunu **bir RESTful API** olarak çalıştırabilir.
+   - Birkaç satır kod ile çalışan bir backend oluşturabilirsiniz.
+
+2. **Backend Gerektirmeden API Kullanımı**  
+   - Backend kodu yazmadan sahte bir API'yi çalıştırarak **frontend geliştirme sürecini hızlandırır**.
+   - Özellikle **React, Angular, Vue gibi** frontend teknolojileriyle çalışırken veri almak için ideal bir çözümdür.
+
+3. **CRUD (Create, Read, Update, Delete) İşlemlerini Destekler**  
+   - **POST** → Veri ekleme  
+   - **GET** → Veri çekme  
+   - **PUT / PATCH** → Veri güncelleme  
+   - **DELETE** → Veri silme  
+   - Bu işlemleri **hiçbir backend kodu yazmadan** gerçekleştirebilirsiniz.
+
+4. **Gerçek API Davranışı**  
+   - Gerçek bir API gibi çalışarak **HTTP istekleriyle veri ekleyip, güncelleyebilirsiniz**.
+   - **Query parametreleri, filtreleme ve sayfalama destekler**.
+
+5. **Prototipleme ve Test Ortamı**  
+   - Büyük projelerde **backend tamamlanmadan frontend geliştiricilerinin** API’yi test etmesine olanak tanır.
+   - **Mobil uygulamalar için de veri kaynağı olarak kullanılabilir**.
+
+---
+
+## **📌 JSON-Server Nasıl Kurulur?**
+### **🔹 1. JSON-Server'ı Global Olarak Yükleme**
+```sh
+npm install -g json-server
+```
+- `-g` parametresi ile **global olarak** yüklenir.
+- Artık her yerden `json-server` komutunu kullanabilirsiniz.
+
+---
+
+### **🔹 2. JSON Dosyası Oluşturma**
+Kök dizinde **`db.json`** adında bir dosya oluşturun ve içine şu veriyi ekleyin:
+```json
+{
+  "posts": [
+    { "id": 1, "title": "JSON Server", "content": "Kolay REST API" },
+    { "id": 2, "title": "Node.js", "content": "JavaScript ile backend" }
+  ],
+  "users": [
+    { "id": 1, "name": "Ahmet" },
+    { "id": 2, "name": "Mehmet" }
+  ]
+}
+```
+- Bu dosya, JSON-Server tarafından bir **veritabanı gibi** kullanılacaktır.
+
+---
+
+### **🔹 3. JSON-Server'ı Çalıştırma**
+```sh
+json-server --watch db.json --port 3000
+```
+- `--watch db.json` → **JSON dosyasını izle, değişiklikleri algıla**
+- `--port 3000` → **API 3000 portunda çalışsın**
+
+---
+
+## **🌍 JSON-Server Kullanımı (API Uç Noktaları)**
+
+### **1️⃣ Tüm Postları Getir (GET)**
+```sh
+GET http://localhost:3000/posts
+```
+**Cevap:**
+```json
+[
+  { "id": 1, "title": "JSON Server", "content": "Kolay REST API" },
+  { "id": 2, "title": "Node.js", "content": "JavaScript ile backend" }
+]
+```
+
+---
+
+### **2️⃣ Tek Bir Postu Getir (GET)**
+```sh
+GET http://localhost:3000/posts/1
+```
+**Cevap:**
+```json
+{ "id": 1, "title": "JSON Server", "content": "Kolay REST API" }
+```
+
+---
+
+### **3️⃣ Yeni Post Ekle (POST)**
+```sh
+POST http://localhost:3000/posts
+Content-Type: application/json
+```
+**Body:**
+```json
+{ "title": "Yeni Yazı", "content": "JSON-Server harika!" }
+```
+**Cevap:**
+```json
+{ "id": 3, "title": "Yeni Yazı", "content": "JSON-Server harika!" }
+```
+
+---
+
+### **4️⃣ Bir Postu Güncelle (PUT / PATCH)**
+#### **Tüm Veriyi Güncelle (PUT)**
+```sh
+PUT http://localhost:3000/posts/1
+Content-Type: application/json
+```
+**Body:**
+```json
+{ "id": 1, "title": "JSON Server Güncellendi", "content": "Yeni içerik" }
+```
+
+#### **Kısmi Güncelleme (PATCH)**
+```sh
+PATCH http://localhost:3000/posts/1
+Content-Type: application/json
+```
+**Body:**
+```json
+{ "title": "Başlık Güncellendi" }
+```
+
+---
+
+### **5️⃣ Bir Postu Sil (DELETE)**
+```sh
+DELETE http://localhost:3000/posts/1
+```
+**Cevap:**  
+`204 No Content` (Silme işlemi başarılı)
+
+---
+
+## **📌 JSON-Server Gelişmiş Özellikler**
+### **🔹 1. Query Parametreleri ile Filtreleme**
+- **Belirli bir kullanıcıyı bulma**
+```sh
+GET http://localhost:3000/users?name=Ahmet
+```
+
+- **Başlığı "JSON Server" olan postları getirme**
+```sh
+GET http://localhost:3000/posts?title=JSON Server
+```
+
+---
+
+### **🔹 2. Sayfalama (Pagination)**
+- **İlk 2 postu getir**
+```sh
+GET http://localhost:3000/posts?_limit=2
+```
+- **Sayfa 2’deki verileri getir**
+```sh
+GET http://localhost:3000/posts?_page=2
+```
+
+---
+
+### **🔹 3. Sıralama (Sorting)**
+- **Başlığa göre sıralama (A-Z)**
+```sh
+GET http://localhost:3000/posts?_sort=title&_order=asc
+```
+- **Başlığa göre ters sıralama (Z-A)**
+```sh
+GET http://localhost:3000/posts?_sort=title&_order=desc
+```
+
+---
+
+### **🔹 4. JSON-Server'ı Express ile Kullanma**
+JSON-Server’ı **Express.js ile birleştirerek** özelleştirebilirsiniz:
+
+📌 **`server.js`**
+```javascript
+const jsonServer = require("json-server");
+const server = jsonServer.create();
+const router = jsonServer.router("db.json");
+const middlewares = jsonServer.defaults();
+
+server.use(middlewares);
+server.use(router);
+
+server.listen(4000, () => {
+  console.log("JSON Server 4000 portunda çalışıyor...");
+});
+```
+Bu şekilde, **JSON-Server'ı port 4000 üzerinde çalıştırabilirsiniz.**
+
+---
+
+## **📌 JSON-Server’ın Kullanım Alanları**
+1️⃣ **Frontend Geliştiricileri için API Simülasyonu**  
+2️⃣ **Mobil Uygulama Geliştirme (Mock API Kullanımı)**  
+3️⃣ **Hızlı Prototipleme ve Test Ortamı Kurma**  
+4️⃣ **Veri Görselleştirme ve Analiz Amaçlı Geçici API Kurma**  
+5️⃣ **Yapay Zeka ve Makine Öğrenimi İçin Test Verisi Sağlama**
+
+---
+
+## **📌 SONUÇ**
+✅ JSON-Server, **hızlı, kolay ve konfigürasyonsuz bir şekilde sahte API oluşturmak için mükemmel bir araçtır**.  
+✅ **Backend yazmadan** API çağrıları yapabilir, CRUD işlemleri gerçekleştirebilir, filtreleme ve sıralama gibi gelişmiş özellikleri kullanabilirsiniz.  
+✅ **Frontend geliştiricileri, mobil uygulama geliştiricileri ve test mühendisleri** için **ideal bir çözümdür**. 🚀
+
 ## Babel
 ```sh
 
 ```
 ---
+
+# **BABEL NEDİR?**
+## **📌 Babel, JavaScript kodlarını eski tarayıcılarla uyumlu hale getiren bir JavaScript derleyicisidir.**
+- Modern JavaScript (ES6, ES7, ES8 ve sonrası) kodlarını, **ES5 gibi daha eski versiyonlara çevirerek** tüm tarayıcıların desteklemesini sağlar.
+- **ES6+ (ECMAScript 2015 ve sonrası) kodlarını, ES5’e** veya daha önceki JavaScript sürümlerine dönüştürür.
+- **React, TypeScript ve diğer modern JavaScript teknolojileriyle** uyumludur.
+- Tarayıcıların **henüz desteklemediği özellikleri (async/await, arrow functions, classes, optional chaining vs.)** eski tarayıcılar için destekler.
+- **Transpiler (çevirici) olarak çalışır**, yani **JavaScript kodunu alır ve daha eski bir JavaScript sürümüne çevirir**.
+
+---
+
+# **📌 BABEL NEDEN KULLANILIR?**
+Babel, aşağıdaki nedenlerle kullanılır:
+
+### **1️⃣ Tarayıcı Uyumluluğu Sağlar**
+- Tarayıcılar farklı JavaScript sürümlerini destekler.
+- Örneğin, **Internet Explorer (IE) ES6 özelliklerini desteklemez**.
+- Eğer modern **ES6/ES7 kodları** yazıyorsanız, eski tarayıcılar bunları çalıştıramaz.
+- **Babel, kodu ES5’e çevirerek tüm tarayıcılarda çalışmasını sağlar.**
+
+### **2️⃣ Modern JavaScript Özelliklerini Kullanmayı Sağlar**
+- ES6 ve üstü, birçok yeni özellik içerir (**arrow functions, let/const, class, async/await, optional chaining** vb.).
+- Ancak, bu özelliklerin tüm tarayıcılar tarafından desteklenmesi **yıllar sürebilir**.
+- **Babel sayesinde bu özellikleri rahatça kullanabiliriz.**
+
+### **3️⃣ React ve JSX Desteği Sağlar**
+- React, **JSX (JavaScript XML)** kullanır.
+- Tarayıcılar JSX’i anlayamaz, çünkü normal JavaScript değildir.
+- Babel, JSX kodlarını **standart JavaScript’e** dönüştürerek çalıştırır.
+
+Örnek JSX kodu:
+```jsx
+const App = () => {
+  return <h1>Merhaba Dünya!</h1>;
+};
+```
+Babel bunu şu şekilde **JavaScript’e çevirir**:
+```js
+const App = function() {
+  return React.createElement("h1", null, "Merhaba Dünya!");
+};
+```
+
+### **4️⃣ ES Modules (`import/export`) Desteği Sağlar**
+- Modern JavaScript’te **import/export modülleri** kullanılabilir:
+```js
+import sayHello from './utils.js';
+sayHello();
+```
+- **Ancak eski tarayıcılarda `import/export` çalışmaz.**
+- Babel, **bu kodu `require()` formatına** çevirerek destekler.
+
+### **5️⃣ TypeScript, Vue, Angular, React ile Kullanılabilir**
+- **TypeScript veya JSX kullanıyorsanız**, tarayıcılar doğrudan bu dosyaları çalıştıramaz.
+- Babel, **bu dilleri JavaScript’e çevirerek** tarayıcıda çalışmasını sağlar.
+
+---
+
+# **📌 BABEL NASIL ÇALIŞIR?**
+Babel, **üç aşamada çalışan** bir **JavaScript derleyicisidir**.
+
+### **1️⃣ Parsing (Ayrıştırma)**
+- JavaScript kodunu **Abstract Syntax Tree (AST)** adlı bir veri yapısına çevirir.
+- Örneğin, şu kod:
+```js
+const x = 10;
+```
+- AST’ye şu şekilde çevrilir:
+```json
+{
+  "type": "VariableDeclaration",
+  "declarations": [
+    {
+      "type": "VariableDeclarator",
+      "id": { "type": "Identifier", "name": "x" },
+      "init": { "type": "Literal", "value": 10 }
+    }
+  ]
+}
+```
+
+### **2️⃣ Transformation (Dönüştürme)**
+- AST’yi analiz eder ve eski JavaScript sürümüne dönüştürür.
+- **Örnek:**
+```js
+const sayHello = () => console.log("Merhaba!");
+```
+- Babel bunu **ES5 sürümüne çevirir**:
+```js
+var sayHello = function() {
+  console.log("Merhaba!");
+};
+```
+
+### **3️⃣ Code Generation (Kod Üretme)**
+- Yeni oluşturulan AST’yi **JavaScript koduna** çevirir.
+- Böylece tarayıcıda çalıştırılabilir hale gelir.
+
+---
+
+# **📌 BABEL NASIL KURULUR?**
+Babel'i kullanmak için **Node.js ve npm** gereklidir.
+
+### **1️⃣ Babel’i Projeye Yükleme**
+İlk olarak, bir proje klasörü oluşturun:
+```sh
+mkdir babel-project
+cd babel-project
+npm init -y
+```
+
+Daha sonra **Babel bağımlılıklarını yükleyin**:
+```sh
+npm install --save-dev @babel/core @babel/cli @babel/preset-env
+```
+
+| Paket | Açıklama |
+|--------|---------|
+| `@babel/core` | Babel’in ana paketi |
+| `@babel/cli` | Babel’in komut satırı arayüzü (CLI) |
+| `@babel/preset-env` | ES6+ kodlarını ES5’e çeviren paket |
+
+---
+
+### **2️⃣ Babel Konfigürasyonu (`.babelrc`)**
+Proje kök dizinine `.babelrc` adında bir dosya oluşturun ve içine şu kodu ekleyin:
+```json
+{
+  "presets": ["@babel/preset-env"]
+}
+```
+
+Bu, **tüm modern JavaScript özelliklerini destekleyen bir çeviri ayarıdır.**
+
+---
+
+### **3️⃣ Babel Kullanımı**
+Babel’i çalıştırarak kodu dönüştürelim.
+
+Örneğin, **`src/index.js`** dosyasına şu ES6 kodunu ekleyelim:
+```js
+const sayHello = () => console.log("Merhaba Dünya!");
+sayHello();
+```
+
+Babel ile **bu kodu ES5’e dönüştürelim**:
+```sh
+npx babel src/index.js --out-file dist/index.js
+```
+
+Bu komut, `dist/index.js` içine şu ES5 kodunu yazacaktır:
+```js
+var sayHello = function() {
+  console.log("Merhaba Dünya!");
+};
+sayHello();
+```
+
+Böylece **eski tarayıcılarda çalışabilir hale geldi**! 🎉
+
+---
+
+# **📌 BABEL İLE PLUGİN KULLANIMI**
+Babel, sadece ES6’yı ES5’e çevirmekten daha fazlasını yapabilir. **Özel plugin’lerle** yeni özellikler ekleyebiliriz.
+
+### **1️⃣ Class Özelliği Desteği**
+Eğer şu ES6 sınıfı yazarsak:
+```js
+class Person {
+  constructor(name) {
+    this.name = name;
+  }
+}
+```
+Bu, **eski tarayıcılarda çalışmaz**.
+
+Bunu desteklemek için **class plugin’i yükleyelim**:
+```sh
+npm install --save-dev @babel/plugin-transform-classes
+```
+Sonra **`.babelrc`** içine ekleyelim:
+```json
+{
+  "presets": ["@babel/preset-env"],
+  "plugins": ["@babel/plugin-transform-classes"]
+}
+```
+Şimdi **Babel bu sınıfı ES5’e dönüştürebilir**.
+
+---
+
+# **📌 BABEL İLE REACT (JSX) KULLANIMI**
+React projelerinde JSX’i JavaScript’e çevirmek için Babel gereklidir.
+
+Örneğin, bir React bileşeni:
+```jsx
+const App = () => {
+  return <h1>Merhaba Dünya!</h1>;
+};
+```
+Bu kod, tarayıcı tarafından anlaşılamaz.
+
+Babel’in **React preset’ini yükleyelim**:
+```sh
+npm install --save-dev @babel/preset-react
+```
+Sonra **`.babelrc`** dosyamızı güncelleyelim:
+```json
+{
+  "presets": ["@babel/preset-env", "@babel/preset-react"]
+}
+```
+Artık Babel, JSX’i **standart JavaScript’e çevirir** ve tarayıcıda çalışabilir hale getirir!
+
+---
+
+# **📌 SONUÇ**
+✅ **Babel, modern JavaScript özelliklerini eski tarayıcılarla uyumlu hale getiren güçlü bir çevirici (transpiler)’dir.**  
+✅ **ES6+, React JSX, TypeScript gibi dilleri destekleyerek tarayıcılarda sorunsuz çalışmasını sağlar.**  
+✅ **Frontend ve Backend geliştiricileri için kritik bir araçtır ve tüm modern projelerde kullanılır.** 🚀
+
+
+## Emmet
+```sh
+
+```
+---
+
+Aşağıda, sık kullanılan **Emmet Preferences (Ayarları)** listesini bulabilirsin. Bu ayarları **VS Code** gibi editörlerde **settings.json** dosyasına ekleyerek kullanabilirsin.
+
+---
+
+### 🔹 **Sık Kullanılan Emmet Ayarları**
+```json
+{
+    // Emmet genişletmesini "Tab" tuşu ile etkinleştirir
+    "emmet.triggerExpansionOnTab": true,
+
+    // HTML ve CSS için otomatik kapanan etiketleri tamamlar
+    "emmet.syntaxProfiles": {
+        "html": {
+            "self_closing_tag": "xhtml"
+        }
+    },
+
+    // Boş öğelerde otomatik olarak boşluk bırakır
+    "emmet.preferences": {
+        "format.forceIndentationForEmmet": true, 
+        "format.noIndentTags": "html, body, head",
+        "format.selfClosingStyle": "xhtml" // <br />, <img />, vb.
+    },
+
+    // CSS için kısa yazımları destekler
+    "emmet.showAbbreviationSuggestions": true,
+
+    // HTML etiketleri için otomatik tamamlama önerileri verir
+    "editor.quickSuggestions": {
+        "other": true,
+        "comments": false,
+        "strings": true
+    },
+
+    // HTML genişletmelerinde satır sonu otomatik ekler
+    "emmet.variables": {
+        "lang": "en",
+        "charset": "UTF-8"
+    },
+
+    // Emmet ile genişletilmiş HTML kodlarını biçimlendirir
+    "editor.formatOnPaste": true,
+
+    // JSX / React gibi ortamlarda Emmet’in çalışmasını sağlar
+    "emmet.includeLanguages": {
+        "javascript": "javascriptreact",
+        "typescript": "typescriptreact"
+    }
+}
+```
+
+---
+
+### 📌 **Ne İşe Yarar?**
+- **Tab ile Emmet genişletme** → `div.container>ul>li*5` yazıp **Tab** tuşuna basınca genişler.
+- **HTML'de otomatik kapatma** → `<img>` gibi etiketler `xhtml` formatında kapanır.
+- **CSS için kısa tamamlama** → `m10` → `margin: 10px;` şeklinde tamamlanır.
+- **React / JSX desteği** → `emmet.includeLanguages` ile JSX içinde çalışmasını sağlar.
+
+Eğer farklı bir özellik eklemek istersen, söyle! 🚀
 
 
 ## .env
@@ -1144,6 +1660,30 @@ EJS'yi Node.js projenize şu şekilde dahil edebilirsiniz:
 - **Node.js ile Entegre**: Express.js gibi popüler Node.js çerçeveleriyle mükemmel bir şekilde entegre olabilir.
 
 ## EJS, basit dinamik HTML içerik oluşturma ihtiyacı olan projelerde oldukça kullanışlıdır ve Node.js uygulamalarıyla yaygın bir şekilde kullanılır.
+
+
+Büyük projelerde **EJS (Embedded JavaScript)** kullanmak çoğu zaman **mantıklı bir tercih olmaz**. Çünkü EJS, **server-side rendering (SSR)** odaklı ve çok temel bir şablon motorudur. Ancak büyük projelerde ölçeklenebilirlik, modülerlik ve performans gibi faktörler daha önemli hale gelir. İşte bazı nedenler:
+
+### ❌ **EJS Kullanmanın Dezavantajları**
+1. **Statik HTML Yapısı** → React, Vue veya Angular gibi bileşen bazlı yapılar kadar esnek değildir.
+2. **Zayıf Yeniden Kullanılabilirlik** → Component-based yaklaşımı desteklemediği için kod tekrarına neden olabilir.
+3. **Dinamik İçerik Yönetimi** → SPA (Single Page Application) ile entegrasyonu zordur.
+4. **Bakım Zorluğu** → Büyük projelerde HTML ve JavaScript iç içe geçtiğinde kod karmaşıklaşır.
+5. **SEO Avantajı Düşük** → Server-side rendering yapmasına rağmen, Next.js gibi gelişmiş SSR çözümlerine göre daha az esnektir.
+
+### ✅ **EJS Kullanmanın Avantajları**
+- **Hızlı prototipleme** için uygundur.
+- **Express.js** ile entegrasyonu kolaydır.
+- Küçük ve orta ölçekli projelerde **hafif ve basit** bir çözüm sunar.
+
+### 📌 **Büyük Projeler İçin Alternatifler**
+Eğer büyük bir projede şablon motoru kullanacaksan, şu seçenekleri değerlendirebilirsin:
+- **Next.js (React tabanlı SSR ve SSG desteği sunar)**
+- **Nuxt.js (Vue tabanlı SSR çözümü)**
+- **Pug (Daha okunaklı şablon motoru)**
+- **Handlebars.js (Daha esnek ve modüler)**
+
+**Sonuç:** Küçük projelerde EJS kullanmak hızlı çözümler sunabilir ama büyük projelerde **React, Vue veya SSR destekli Next.js / Nuxt.js gibi çözümleri** tercih etmek daha mantıklıdır.
 
 
 ## Mongo DB
