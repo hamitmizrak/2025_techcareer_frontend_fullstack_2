@@ -19,10 +19,10 @@ const dbFilePath = path.join(__dirname, "../db.json");
 /////////////////////////////////////////////////////////////////////////////////////
 
 // DRY (Don't Repeat Yourself) - Kendini Tekrar Etme
-const handleError = (err, response, status, message) => {
-  console.error("Error: ", err);
-  response.status(status).json({ message });
-}; //end handleError
+// Hata Yönetimi
+const handleError = (res, message) => {
+  res.status(400).json({ error: message });
+};
 
 /////////////////////////////////////////////////////////////////////////////////////
 // JSON-SERVER(DB) VERI OKU
@@ -39,35 +39,34 @@ const writeDB = (data) => {
 
 /////////////////////////////////////////////////////////////////////////////////////
 // BLOG API (CREATE)
-router.post("/", async (request, response) => {
+router.post("/", (request, response) => {
   try {
     // Verileri almak
     const { header, content, author, tags } = request.body;
     if (!header || !content || !author || !tags) {
-      return handleError(null, response, 400, "Eksik Bilgi Girişi");
-      //response.status(400).json({message: "Eksik Bilgi Girişi"})
+      return handleError(res, "Tüm alanlar gereklidir!");
     }
 
     // Dikkat: db.json içindeki dizi adı : blogs
     // Veri tabanı
-    const db = readDB();
+    let db = readDB();
     const newBlog = {
-      id: db.blogs.length + 1,
+      id: db.blogs.length ? db.blogs[db.blogs.length - 1].id + 1 : 1,
       header,
       content,
       author,
       tags,
-      dateInformation: new Date().toISOString(),
-    }; // end newBlog
+      createdAt: new Date().toISOString(),
+    };
 
-    //
     db.blogs.push(newBlog);
     writeDB(db);
-    response.status(201).json(newBlog);
-  } catch (err) {
-    handleError(err, response, 500, "Blog Ekleme Başarısız");
+
+    res.status(201).json(newBlog);
+  } catch (error) {
+    handleError(res, "Blog ekleme işlemi başarısız!");
   }
-}); //end router.post
+});
 
 //////////////////////////////////////////////////////////////////////////////////////
 // BLOG API (LIST)
