@@ -28,6 +28,13 @@ const dotenv_1 = __importDefault(require("dotenv"));
 dotenv_1.default.config(); // .env dosyasındaki değişkenleri process.env içine yükler
 // CSRF (Cross-Site Request Forgery saldırılarına karşı koruma sağlar)
 const csrf = require("csurf");
+// Http (Node.js'in HTTP modülü)
+const { request } = require("http");
+// CSRF Middleware
+// CSRF(Cross-Site Request Forgery) saldırılarına karşı güvenliği sağlar.
+// CSRF tokenlarını çerezler araçılığıyla gönderilir.
+const csrfProtection = csrf({ cookie: true });
+// Cookie 
 const cookieParser = require("cookie-parser"); // CSRF için cookie-parser gerekli olabilir
 // CORS (Cross-Origin Resource Sharing)
 // Eğer API'niz başka portlardan da erişim sağlanacaksa bunu açmamız gerekiyor.
@@ -239,8 +246,14 @@ app.use(bodyParser.json());
 app.use(cookieParser());
 // CSRF Middleware
 // CSRF(Cross-Site Request Forgery) saldırılarına karşı güvenliği sağlar.
-// CSRF tokenlarını çerezler araçılığyla gönderilir.
-const csrfProtection = csrf({ cookie: true });
+// CSRF tokenlarını çerezler araçılığıyla gönderilir.
+// static CSRF koruması Dynamics aşağıda
+// Middleware ile CSRF Token oluşturma
+// app.use((request: any, response: any, next: any) => {
+//   response.locals.csrfToken = "test_csrf_token_static";
+//   //response.locals.csrfToken = request.csrfToken();
+//   next();
+// });
 // compression:
 // npm install compression
 // Gzip : Verilerin sıkıştırılmasıyla performansı artırmak
@@ -260,10 +273,10 @@ const limiter = rateLimit({
     message: "İstek sayısı fazla yapıldı, lütfen biraz sonra tekrar deneyiniz",
 });
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// Yeni özellikleri buraya ekleyebilirsiniz.
+// Blog/api isteklerini azatlmak özellikle Login/Register için  çok önemli 
+// Brute Force saldırılarına karşı koruma sağlar.
 app.use("/blog/api", limiter);
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Yeni sayfa,özellikleri örneğin todo buraya ekleyebilirsiniz.
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // CORS
 // npm install cors
@@ -287,25 +300,145 @@ Kullanıcı browser üzerinden oturum açtığında ve kimlik doğrulama bilgile
 */
 // npm install csurf
 // npm install cookie-parser
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// 44445454541515151515
-// Middleware ile CSRF Token oluşturma
-app.use((request, response, next) => {
-    response.locals.csrfToken = "test_csrf_token_static";
-    //response.locals.csrfToken = request.csrfToken();
-    next();
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// STATIC (Ts için public dizini oluşturduk)
+// Uygulamada statik dosyaların HTML,CSS,JS,image v.b içerikler sunar.
+// public klasörü, statik doyalar için kök dizin olarak belirlenir.
+// Bu klasörde bulunan dosyalara tarayıcıdan direk erişim sağlanır.
+// Örnek: public klasöründe style.css adlı bir dosya varsa biz buna şu şekilde erişim sağlarız.
+// http://localhost:1111/style.css
+// app.use(express.static("public"));
+// 📌 Statik Dosya Servisi (index44.html'nin çalışması için)
+// import path from "path";
+app.use(express.static(path.join(__dirname, "../public")));
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// ROUTER (Index.html Anasayfa)
+// 📌 Ana Sayfa (`index.html`) Yönlendirmesi
+// http://localhost:1111/
+app.get("/", (request, response) => {
+    response.sendFile(path.join(__dirname, "public", "index.html"));
 });
-// Anasayfa (httpİ://localhost:1111/)
-app.get("/", (request, response) => { }); // End of app.get
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// ROUTER (Blog.ejs Sayfası)
+// GET ROUTER (Blog Sayfası)
+// GET: Liste veya Find işlemlerinde kullanılır.
+// http://localhost:1111/blog
+app.get("/blog", csrfProtection, (request, response) => {
+    // İstek gövdesinde JSON(Javascript Object Notation) formatında veri göndereceğini belirtir.
+    //response.setHeader("Content-Type", "application/json");
+    //response.setHeader("Content-Type", "text/plain"); // name Hamit surnameMızrak
+    response.setHeader("Content-Type", "text/html");
+    //response.setHeader("Content-Type", "application/x-www-form-urlencoded"); // name=Hamit&surname=Mizrak
+    // cache-control: Yanıtları hızlı sunmak için ve sunuca gereksiz istekleri azaltmak için
+    response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+    // Sitemizi başka sitelerde iframe ile açılmasını engellemek
+    // clickjacking saldırılarına karşı korumayı sağlar
+    response.setHeader("X-Frame-Options", "DENY");
+    // X-XSS-Protection: Tarayıca tarafından XSS(Cross-Site Scripting) saldırılarıa karşı koruma
+    // XSS saldırısını tespit ederse sayfanın yüklenmesini engeller.
+    response.setHeader("X-XSS-Protection", "1; mode=block");
+    // Access Control (CORS Başlıkları)
+    // XBaşka bir kaynaktan gelen istekleri kontrol etmet için CORS başlığı ekleyebiliriz.
+    response.setHeader("Access-Control-Allow-Origin", "https://example.com");
+    // Access-Control-Allow-Methods
+    // Sunucunun hangi HTTP yöntemlerini kabul etiğini gösterir.
+    response.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, PATCH, DELETE, OPTIONS");
+    // Access-Control-Allow-Headers
+    // Bu başlıklar, taryıcınının sunucuya göndereceği özel başlıklar göndersin
+    response.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
+    // dist/server.js
+    response.render("blog", { csrfToken: request.csrfToken() });
+});
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// ROUTER (Blog.ejs Sayfası)
+// POST ROUTER (Blog Sayfası)
+// POST: Create, Update, Delete işlemlerinde kullanılır.
+// Form verilerini işleyen rota
+// DİKKATT: Eğer  blog_api_router.js post kısmında event.preventDefault(); kapatırsam buraki kodlar çalışır.
+// blog için CSRF koruması eklenmiş POST işlemi
+app.post("/blog", csrfProtection, (request, response) => {
+    const blogData = {
+        header: request.body.header,
+        content: request.body.content,
+        author: request.body.author,
+        tags: request.body.tags,
+    };
+    // Validation
+    if (!blogData.header || !blogData.content) {
+        return response.status(400).send("Blog verisi eksik!");
+    }
+    if (!request.body) {
+        console.log("Boş gövde alındı.");
+        //logger.info("Boş gövde alındı."); //logger: Winston
+    }
+    else {
+        console.log(request.body);
+        console.log("Dolu gövde alındı.");
+        //logger.info(request.body); //logger: Winston
+        //logger.info("Dolu gövde alındı."); //logger: Winston
+    }
+    // Mongo için Schema Eklentisi
+    const BlogModel = require("./models/mongoose_blog_models"); // Modeli ekleyin
+    // Yeni Blog Oluştur (instance)
+    const newBlog = new BlogModel(blogData);
+    newBlog
+        .save()
+        .then(() => {
+        console.log("Blog başarıyla kaydedildi:", blogData);
+        //logger.info("Blog başarıyla kaydedildi:", blogData); //logger: Winston
+        response.send("CSRF ile blog başarıyla kaydedildi.");
+    })
+        .catch((err) => {
+        console.log("Veritabanı hatası:", err);
+        //logger.error("Veritabanı hatası:", err); //logger: Winston
+        response.status(500).send("Veritabanı hatası oluştu.");
+    });
+});
+// static Blog için
 // Define a route handler for the GET / route
-app.get("/blog", (request, response) => {
-    // blog.ejs
-    // response.send("blog");
-    // response.render("blog", { message: "Bu blog sayfasııdır" });
-    // CSRF Token EJS'e Gönderiyor
-    response.render("blog", { csrfToken: response.locals.csrfToken });
-}); // End of app.get
+//app.get("/blog", (request: any, response: any) => {
+// blog.ejs
+// response.send("blog");
+// response.render("blog", { message: "Bu blog sayfasııdır" });
+// CSRF Token EJS'e Gönderiyor
+//  response.render("blog", { csrfToken: response.locals.csrfToken });
+//});
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// ROUTER (Todo.ejs Sayfası)
+// GET ROUTER (Todo Sayfası)
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// ROUTER (Todo.ejs Sayfası)
+// POST ROUTER (Todo Sayfası)
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Router (Rotalar)
+const blogRouter = require("../routers/blog_api_router");
+// Blog'ta API Rotalarını kullanmak için
+app.use("/blog/api", blogRouter);
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// 404 Hata sayfası
+app.use((request, response, next) => {
+    // render("ErrorPage404") ==>  views/ErrorPage404.ejs
+    response.status(404).render("ErrorPage404", { url: request.originalUrl });
+});
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Windowsta 1111 portunu kapatmak
+/*
+Terminali Yönetici olarak Aç
+
+# Çalışan portu gösteriyor
+netstat -aon | findstr :1111
+
+# TCP Protokolü için Portu Kapatma:
+netsh advfirewall firewall add rule name="Block TCP Port 1111" protocol=TCP dir=in localport=1111 action=block
+
+# UDP Protokolü için Portu Kapatma:
+netsh advfirewall firewall add rule name="Block UDP Port 1111" protocol=UDP dir=in localport=1111 action=block
+
+*/
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Sunucu start
 app.listen(PORT, () => {
-    console.log(`Server is listening on port http://localhost:${PORT}`);
+    console.log(`Sunucu ${PORT} portunda çalışıyor http://localhost:${PORT}`);
+    //console.log(`Server is listening on port http://localhost:${PORT}`);
+    //logger.info(`Sunucu ${PORT} portunda çalışıyor http://localhost:${PORT}`); //logger: Winston
 });
