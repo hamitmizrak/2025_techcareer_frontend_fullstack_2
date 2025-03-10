@@ -14,6 +14,11 @@ console.log("server.ts");
 // Express modülünü içe aktarıyoruz
 const express = require("express");
 
+// Import the fs module (Dosya işlemleri için)
+// Dosya işlemleri için (File system modülü[Dosya sistemleri])
+// Bu modül sayesinde Node.js ortamında dosya ve dizin işlemlerimizi rahatlıkla yapabiliriz.
+const fs = require("fs");
+
 // Import the path module (Dosya ve dizin yolları ile çalışmak için)
 const path = require("path");
 
@@ -27,6 +32,10 @@ dotenv.config(); // .env dosyasındaki değişkenleri process.env içine yükler
 // CSRF (Cross-Site Request Forgery saldırılarına karşı koruma sağlar)
 const csrf = require("csurf");
 const cookieParser = require("cookie-parser"); // CSRF için cookie-parser gerekli olabilir
+
+// CORS (Cross-Origin Resource Sharing)
+// Eğer API'niz başka portlardan da erişim sağlanacaksa bunu açmamız gerekiyor.
+const cors = require("cors");
 
 // Helmet: Güvenlik odaklı HTTP başlıklarını ayarlar
 // - XSS, Clickjacking(iframe içinde) gibi saldırılara karşı koruma sağlar.
@@ -67,43 +76,88 @@ const PORT = process.env.LOCALHOST_PORT || 1111;
 // Winston logger yapılandırması
 // Winston, hata kayıtlarını ve bilgi loglarını yönetmek için kullanılan güçlü bir loglama kütüphanesidir.
 // Log seviyeleri: error, warn, info, http, verbose, debug, silly gibi farklı seviyelere sahiptir.
-const logger = winston.createLogger({
-    // Log seviyesini belirtiyoruz. Varsayılan olarak "info" seviyesinden başlayarak log kayıtları tutulacak.
-    level: "info",
+// const logger = winston.createLogger({
+//   // Log seviyesini belirtiyoruz. Varsayılan olarak "info" seviyesinden başlayarak log kayıtları tutulacak.
+//   level: "info",
 
-    // Log formatını JSON olarak ayarlıyoruz.
-    // Bu sayede loglar yapılandırılmış bir biçimde saklanabilir ve işlenebilir.
-    format: winston.format.json(),
+//   // Log formatını JSON olarak ayarlıyoruz.
+//   // Bu sayede loglar yapılandırılmış bir biçimde saklanabilir ve işlenebilir.
+//   format: winston.format.json(),
 
-    // Logları saklamak için kullanılan "transports" (taşıyıcılar) belirleniyor.
-    transports: [
-        // Hata loglarını (error seviyesindeki) ayrı bir dosyaya kaydetme
-        new winston.transports.File({
-            filename: "../logs/winston_error.log", // Hata loglarının kaydedileceği dosya
-            level: "error", // Sadece "error" seviyesindeki loglar kaydedilecek
-        }),
+//   // Logları saklamak için kullanılan "transports" (taşıyıcılar) belirleniyor.
+//   transports: [
+//     // Hata loglarını (error seviyesindeki) ayrı bir dosyaya kaydetme
+//     new winston.transports.File({
+//       filename: "../dist/winston_error.log", // Hata loglarının kaydedileceği dosya
+//       level: "error", // Sadece "error" seviyesindeki loglar kaydedilecek
+//     }),
 
-        // Tüm seviyelerdeki logları tek bir dosyaya kaydetme
-        new winston.transports.File({
-            filename: "../logs/winston_combined.log", // Tüm loglar buraya kaydedilecek
-        }),
-    ],
-});
+//     // Tüm seviyelerdeki logları tek bir dosyaya kaydetme
+//     new winston.transports.File({
+//       filename: "../dist/winston_combined.log", // Tüm loglar buraya kaydedilecek
+//     }),
+//   ],
+// });
 
 // Geliştirme ortamında (development) çalışırken logların konsola yazdırılması
-if (process.env.NODE_ENV !== "production") {
-    logger.add(
-        new winston.transports.Console({
-            format: winston.format.simple(), // Daha okunabilir bir format kullanıyoruz
-        })
-    );
-}
+// if (process.env.NODE_ENV !== "production") {
+//   logger.add(
+//     new winston.transports.Console({
+//       format: winston.format.simple(), // Daha okunabilir bir format kullanıyoruz
+//     })
+//   );
+// }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Morgan Aktifleştirmek
+// Morgan, HTTP isteklerini loglamak için kullanılan popüler bir middleware'dir.
+// İstekleri detaylı bir şekilde kaydederek hata ayıklama ve analiz yapmamıza yardımcı olur.
+
+// dev, combined, common, short, tiny gibi farklı log formatlarına sahiptir.
+// app.use(morgan('dev'));      // Kısa , renkli ve geliştirme ortamı için uygundur.
+// app.use(morgan('combined')); // Apache log formatına benzer ve daha detaylı bilgiler içerir.
+// app.use(morgan('common'));   // Combined formatına benzer, fakat referans bilgileri içermez.
+// app.use(morgan('short'));    // Kısa ve öz bilgiler içerir. (Sadece log formatındadır)
+// app.use(morgan('tiny'));     // En küçük ve öz bilgiler içerir.(Minumum detay)
+
 // Morgan'ı Express.js uygulamasında kullanalım.
-//app.use(morgan('dev')); //dev: kısa ve renkli loglar göster
-app.use(morgan("combined")); //dev: uzun ve renkli loglar göster
+// "dev" formatı kısa ve renkli loglar gösterir. (Daha çok geliştirme ortamı için uygundur)
+// app.use(morgan('dev'));
+
+// "combined" formatı, Apache log formatına benzer ve daha detaylı bilgiler içerir.
+// Bu format, IP adresi, tarih, kullanıcı agent bilgisi ve yanıt süresi gibi ek bilgileri içerir.
+// Genellikle prodüksiyon ortamında tercih edilir.
+// app.use(morgan("combined"));
+
+// Geliştirme Ortamında dev, Prodüksiyonda combined Kullanın
+// Daha esnek bir yapı oluşturmak için ortam değişkenlerini kontrol edebilirsiniz:
+// Bu sayede geliştirme (NODE_ENV=development) sırasında:
+// daha okunaklı kısa loglar (dev), prodüksiyon (NODE_ENV=production) ortamında ise daha detaylı loglar (combined) kullanılır.
+// const logFormat = process.env.NODE_ENV === "production" ? "combined" : "dev";
+// app.use(morgan(logFormat));
+
+// // Logları Dosyaya Yazdırma
+// // Eğer Morgan loglarını dosyaya yazdırmak isterseniz:
+// const accessLogStream = fs.createWriteStream(
+//   path.join(__dirname, "./logs/morgan_access.log"),
+//   { flags: "a" }
+// );
+
+// 1.YOL
+// app.use(morgan("combined", { stream: accessLogStream }));
+
+// 2.YOL (Morgan ile Winston Kullanımı)
+// Morgan ile Winston'ı birlikte kullanarak logları hem konsola hem de dosyaya yazdırabiliriz.
+// Morgan'ın stream özelliği ile logları dosyaya yazdırabiliriz.
+// app.use(
+//   morgan("combined", {
+//     stream: {
+//       write: (message: any) => {
+//         logger.info(message);
+//       },
+//     },
+//     })
+// );
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Mongo DB Bağlantısı
@@ -137,7 +191,8 @@ db.createUser({
 //dotenv.config();
 // 1.YOL (LOCALHOST)
 // .env dosyasındaki bilgilerden bağlantı URL'si oluşturuluyor
-const _1_databaseLocalUrl = process.env.MONGO_USERNAME && process.env.MONGO_PASSWORD
+const _1_databaseLocalUrl =
+  process.env.MONGO_USERNAME && process.env.MONGO_PASSWORD
     ? `mongodb://${process.env.MONGO_USERNAME}:${process.env.MONGO_PASSWORD}@127.0.0.1:${process.env.MONGO_PORT}/blogDB`
     : "mongodb://blogAdmin:BlogPass123@127.0.0.1:27017/blogDB";
 
@@ -151,7 +206,7 @@ const _2_databaseDockerUrl = "mongodb://localhost:27000/blogDB";
 // MongoDB Cloud (username,password)
 // 3.YOL (CLOUD)
 const _3_databaseCloudUrl =
-    "mongodb+srv://hamitmizrak:<password>@offlinenodejscluster.l3itd.mongodb.net/?retryWrites=true&w=majority&appName=OfflineNodejsCluster";
+  "mongodb+srv://hamitmizrak:<password>@offlinenodejscluster.l3itd.mongodb.net/?retryWrites=true&w=majority&appName=OfflineNodejsCluster";
 
 // 4.YOL (.dotenv) Sadece
 require("dotenv").config();
@@ -214,8 +269,7 @@ name:"Hamit",
 surname:"Mızrak"
 }
  */
-app.use(bodyParser.urlencoded({extended: true}));
-
+app.use(bodyParser.urlencoded({ extended: true }));
 
 // app.use(bodyParser.urlencoded({ extended: true }));
 // Bu middleware gelen HTTP isteklerinin gövdesindeki JSON verilerini ayrıştırır.
@@ -231,7 +285,7 @@ app.use(cookieParser());
 // CSRF Middleware
 // CSRF(Cross-Site Request Forgery) saldırılarına karşı güvenliği sağlar.
 // CSRF tokenlarını çerezler araçılığyla gönderilir.
-const csrfProtection = csrf({cookie: true});
+const csrfProtection = csrf({ cookie: true });
 
 // compression:
 // npm install compression
@@ -249,72 +303,47 @@ const csrfProtection = csrf({cookie: true});
 // Her 15 dakika içinde en fazla 100 istek atılabilinir.
 const rateLimit = require("express-rate-limit");
 const limiter = rateLimit({
-    windowMs: 15 * 60 * 1000, // 15 dakika
-    max: 100, // buy süre zarfında en fazla bu kadar isterk atabilirsiniz.
-    message: "İstek sayısı fazla yapıldı, lütfen biraz sonra tekrar deneyiniz",
+  windowMs: 15 * 60 * 1000, // 15 dakika
+  max: 100, // buy süre zarfında en fazla bu kadar isterk atabilirsiniz.
+  message: "İstek sayısı fazla yapıldı, lütfen biraz sonra tekrar deneyiniz",
 });
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Yeni özellikleri buraya ekleyebilirsiniz.
+app.use("/blog/api", limiter);
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// CORS
+// npm install cors
 
+app.use(cors());
+
+// Helmet: Http başlıkalrını güvenli hale getirir ve yaygın saldırı vektörlerini azaltır
+//npm install helmet
+
+// const helmet = require("helmet");
+//app.use(helmet());
+app.use(helmet.frameguard({action: "deny"})); // Clickjacking'e karşı koruma
+app.use(helmet.xssFilter()); // XSS saldırılarına karşı koruma
+app.use(helmet.noSniff()); // MIME sniffing koruması
+
+// CSRF
+/*
+CSRF (Cross-Site Request Forgery):  Türkçesi Siteler Arası istek Sahteciliğidir.
+Bu saldırı türünde amaç, kötü niyetli bir kullanıcının, başka bir kullanının haberi olmadan onun adına istekler göndererek
+işlem yapması halidir.
+Kullanımı: Genellikle kullanıcı, başka bir sitede oturum açmışken, saldırganın tasarladğo kötü niyetli sitelerle veya bağlantılarla
+istem dışı işlemler yapmasına saldırgan yönlendirir.
+Kullanıcı browser üzerinden oturum açtığında ve kimlik doğrulama bilgilerie sahip olduğu sitelerde yapılır.
+
+*/
+// npm install csurf
+// npm install cookie-parser
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// 44445454541515151515
 // Middleware ile CSRF Token oluşturma
 app.use((request: any, response: any, next: any) => {
   response.locals.csrfToken = "test_csrf_token_static";
