@@ -1,0 +1,99 @@
+<!-- partials/navbar.ejs -->
+<nav id="navbar_first" class="d-flex align-items-center">
+  <div class="container d-flex justify-content-between">
+    <!-- Sol Taraf (İletişim) -->
+    <div id="first_left" class="d-flex">
+      <ul class="d-flex links">
+        <li>
+          <a class="text-primary me-3 nav-icon" href="tel:+901112223344">
+            <i class="fa-solid fa-phone-flip"></i>
+          </a>
+        </li>
+        <li>
+          <a
+            class="text-success me-3 nav-icon"
+            href="https://wa.me/901112223344?text=Merhaba%20iletişime%20geçmek%20istiyorum"
+            target="_blank"
+          >
+            <i class="fa-brands fa-whatsapp"></i>
+          </a>
+        </li>
+        <li>
+          <a class="text-danger me-3 nav-icon" href="mailto:hamitmizrak@gmail.com">
+            <i class="fa-solid fa-envelope"></i>
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Sağ Taraf (Login/Register/Admin) -->
+    <div id="first_right" class="d-flex">
+      <a href="/login" title="Login" class="text-primary me-2 nav-icon">
+        <i class="fa-solid fa-user"></i>
+      </a>
+      <a
+        href="/register"
+        target="_blank"
+        title="Register"
+        class="text-warning me-2 nav-icon"
+      >
+        <i class="fa-solid fa-user-secret"></i>
+      </a>
+      <a
+        href="/blog"
+        target="_blank"
+        title="Blog"
+        class="text-danger nav-icon"
+      >
+        <i class="fa-solid fa-blog"></i>
+      </a>
+    </div>
+  </div>
+</nav>
+
+<!-- Ana Navbar -->
+<nav
+  id="navbar_second"
+  class="navbar navbar-expand-md navbar-dark bg-dark shadow-sm fixed-top44"
+>
+  <div class="container">
+    <!-- Logo -->
+    <a class="navbar-brand fw-bold d-flex align-items-center" href="/">
+      <i class="fa-solid fa-code me-2"></i> LOGO
+    </a>
+
+    <!-- Mobil Menü Açma Butonu -->
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#collapsibleNavId"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Navbar Menüsü -->
+    <div class="collapse navbar-collapse" id="collapsibleNavId">
+      <ul class="navbar-nav me-auto">
+        <li class="nav-item">
+          <a class="nav-link active nav-hover" href="/">
+            <i class="fa-solid fa-house"></i> Home
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link nav-hover" href="/blog">
+            <i class="fa-solid fa-blog"></i> Blog
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link nav-hover" href="/contact">
+            <i class="fa-solid fa-id-card"></i> Contact
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- Boşluk bırakmak için -->
+<div style="margin-bottom: 80px;"></div>

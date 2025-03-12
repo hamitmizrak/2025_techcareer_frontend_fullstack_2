@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title><%= typeof title !== 'undefined' ? title : 'Anasayfa' %></title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" crossorigin="anonymous" />
+    
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    
+    <!-- External CSS -->
+    <link rel="stylesheet" href="/css/index.css" />
+  </head>
+  <body data-bs-spy="scroll" data-bs-target="#navbar_second">
+    <noscript>Bu web sitesi JavaScript'i desteklemiyor.</noscript>
+    
+    <!-- Navbar -->
+    <%- include("partials/navbar") %>
+
+    <!-- Header -->
+    <header id="header" class="jumbotron text-white text-center">
+      <div class="container p-5">
+        <h1 class="text-uppercase display-3 bg-dark p-2" style="opacity: 0.9">Full Stack Eğitimimize Hoşgeldiniz</h1>
+        <h4 class="bg-dark p-2" style="opacity: 0.9">Html5, Css3, Js, TS, ES, Node, Mongo</h4>
+      </div>
+    </header>
+    
+    <!-- Main Content -->
+    <main class="container my-5">
+      <section id="blog">
+        <h2 class="text-center text-uppercase text-light display-5">Son Bloglar</h2>
+        <div class="row">
+          <% if (typeof blogPosts !== 'undefined' && Array.isArray(blogPosts) && blogPosts.length > 0) { %>
+            <% blogPosts.forEach(function(post) { %>
+              <div class="col-md-4 mb-4">
+                <div class="card blog-card">
+                  <img src="<%= post.image %>" alt="Blog Görseli" class="card-img-top" />
+                  <div class="card-body">
+                    <h5 class="card-title text-center h1 text-uppercase"><%= post.title %></h5>
+                    <p class="card-text line-clamp4"><%= post.content ? post.content.substring(0, 100) : '' %>...</p>
+                    <a href="/blog/<%= post.id %>" class="btn btn-primary">Daha Fazla</a>
+                  </div>
+                </div>
+              </div>
+            <% }) %>
+          <% } else { %>
+            <p class="text-center text-light">Henüz blog yazısı bulunmamaktadır.</p>
+          <% } %>
+        </div>
+      </section>
+    </main>
+    
+    <!-- Footer -->
+    <%- include("partials/footer") %>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+  </body>
+</html>

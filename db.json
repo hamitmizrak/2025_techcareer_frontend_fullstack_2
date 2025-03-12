@@ -2,13 +2,12 @@
   "blogs": [
     {
       "id": 1,
-      "header": "İlk Blog Yazım",
-      "content": "Bu benim ilk blog yazım!",
-      "author": "Hamit Mızrak",
-      "tags": "JavaScript, JSON Server",
-      "views": 100,
-      "status": "Active",
-      "createdAt": "2025-03-10T12:00:00Z"
+      "header": "header44",
+      "content": "content44",
+      "author": "yazar44",
+      "tags": "tags44",
+      "createdAt": "2025-03-11T23:26:20.550Z",
+      "_csrf": "XXVDRZD0-lMQgWSArxm9Asb-KL0hf9y28aYY"
     }
   ]
 }
