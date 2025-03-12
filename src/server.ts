@@ -579,7 +579,7 @@ app.use("/blog/api", blogRouter);
 
 app.use((request: any, response: any, next: any) => {
   // render("ErrorPage404") ==>  views/ErrorPage404.ejs
-  response.status(404).render("ErrorPage404", { url: request.originalUrl });
+  response.status(404).render("error", { url: request.originalUrl });
 });
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

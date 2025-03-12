@@ -490,7 +490,7 @@ app.use("/blog/api", blogRouter);
 // 404 Hata sayfası
 app.use((request, response, next) => {
     // render("ErrorPage404") ==>  views/ErrorPage404.ejs
-    response.status(404).render("ErrorPage404", { url: request.originalUrl });
+    response.status(404).render("error", { url: request.originalUrl });
 });
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Windowsta 1111 portunu kapatmak

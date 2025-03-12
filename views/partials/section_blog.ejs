@@ -1,0 +1,30 @@
+   <!-- BLOG -->
+        <!-- section#blog.container.my-4.mb-4>h2.text-center.mb-3.mt-1{Son 6 Blog}+div.row>(div.col-md-4.mb-4>div.card.blog-card>img.card-img-top+div.card-body>h5.card-title.text-center.h1.text-uppercase{başlık-$}+p.card-text.line-clamp8{içerik-$}+a.btn.btn-primary{Daha Fazla})*9 -->
+        <section id="blog" class="container container-fluid44 my-4 mb-4">
+          <h2 class="text-center text-uppercase mt-3 mb-5 text-light display-5">
+            
+            <a class="dropdown-item" href="/blog">Bloglar</a>
+          </h2>
+          <h2 class="text-center mb-3 mt-1" style="color: white">Son 6 Blog</h2>
+          <div class="row">
+                <!-- server.ts gelen veriler -->
+            <% if( typeof blogPosts !== 'undefined' && Array.isArray(blogPosts) && blogPosts.length >0) { %>
+            <% blogPosts.forEach(function(post){%>
+                <!-- card-1 -->
+                <div class="col-md-4 mb-4" id="card_body">
+                  <div class="card blog-card">
+                    <img src="<%= post.image %>" alt="Blog image" class="card-img-top" />
+                    <div class="card-body">
+                      <h5 class="card-title text-center h1 text-uppercase"> <%= post.title %> </h5>
+                      <p class="card-text line-clamp8">   <%= post.content ? post.content.substring(0,100) : '' %>... </p>
+                      <a href="/blog/<%= post.id%>" class="btn btn-primary">Daha Fazla</a>
+                      <span><%= post.date %></span>
+                    </div> <!-- card-body -->
+                  </div> <!-- card -->
+                </div> <!-- col-md-4 -->
+            <% }) %>
+            <% } else {%>
+              <h3 class="text-center text-danger">Henüz blog yazısı eklenmemiş</h3>
+            <% } %>
+          </div>
+        </section>

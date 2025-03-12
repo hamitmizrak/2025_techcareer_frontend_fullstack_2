@@ -1,65 +1,125 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-  <head>
-    <title><%= typeof title !== 'undefined' ? title : 'Anasayfa' %></title>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
-    
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" crossorigin="anonymous" />
-    
-    <!-- jQuery -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    
-    <!-- External CSS -->
-    <link rel="stylesheet" href="/css/index.css" />
-  </head>
-  <body data-bs-spy="scroll" data-bs-target="#navbar_second">
-    <noscript>Bu web sitesi JavaScript'i desteklemiyor.</noscript>
-    
-    <!-- Navbar -->
-    <%- include("partials/navbar") %>
+  <!doctype html>
+  <html lang="en">
+    <head>
+      <!-- title -->
+      <title><%= typeof title !=='undefined' ? title: 'Anasayfa'%></title>
 
-    <!-- Header -->
-    <header id="header" class="jumbotron text-white text-center">
-      <div class="container p-5">
-        <h1 class="text-uppercase display-3 bg-dark p-2" style="opacity: 0.9">Full Stack Eğitimimize Hoşgeldiniz</h1>
-        <h4 class="bg-dark p-2" style="opacity: 0.9">Html5, Css3, Js, TS, ES, Node, Mongo</h4>
-      </div>
-    </header>
-    
-    <!-- Main Content -->
-    <main class="container my-5">
-      <section id="blog">
-        <h2 class="text-center text-uppercase text-light display-5">Son Bloglar</h2>
-        <div class="row">
-          <% if (typeof blogPosts !== 'undefined' && Array.isArray(blogPosts) && blogPosts.length > 0) { %>
-            <% blogPosts.forEach(function(post) { %>
-              <div class="col-md-4 mb-4">
-                <div class="card blog-card">
-                  <img src="<%= post.image %>" alt="Blog Görseli" class="card-img-top" />
-                  <div class="card-body">
-                    <h5 class="card-title text-center h1 text-uppercase"><%= post.title %></h5>
-                    <p class="card-text line-clamp4"><%= post.content ? post.content.substring(0, 100) : '' %>...</p>
-                    <a href="/blog/<%= post.id %>" class="btn btn-primary">Daha Fazla</a>
-                  </div>
-                </div>
-              </div>
-            <% }) %>
-          <% } else { %>
-            <p class="text-center text-light">Henüz blog yazısı bulunmamaktadır.</p>
-          <% } %>
-        </div>
-      </section>
-    </main>
-    
-    <!-- Footer -->
-    <%- include("partials/footer") %>
+      <!-- favicon -->
+      <link rel="stylesheet" href="../public/images/favicon.jpg" />
 
-    <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
-  </body>
+      <!-- for language -->
+      <meta charset="utf-8" />
+
+      <!-- for responsive design -->
+      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"
+      />
+
+      <!-- seo -->
+      <meta  name="keywords" content="html5, css3, js, bootstrap5, ts, ejs, node" />
+      <meta name="description" content="blog page" />
+      <meta name="author" content="MSc Computer Engineer Hamit Mızrak" />
+      <meta name="title" content="Hamit Mızrak" />
+
+      <!-- font awesome -->
+      <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+        integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+        crossorigin="anonymous"
+        referrerpolicy="no-referrer"
+      />
+
+      <!-- google font -->
+      <link rel="preconnect" href="https://fonts.googleapis.com" />
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+      <link
+        href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet"
+      />
+
+      <!-- 
+        .roboto-<uniquifier> {
+        font-family: "Roboto", sans-serif;
+        font-optical-sizing: auto;
+        font-weight: <weight>;
+        font-style: normal;
+        font-variation-settings:
+            "wdth" 100;
+        } 
+            -->
+
+      <!-- animate css -->
+      <!-- wow.js -->
+      <!-- sweet alert -->
+
+      <!-- Bootstrap CSS v5.2.1 -->
+      <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+        crossorigin="anonymous"
+      />
+
+      <!-- Internal Css -->
+      <style>
+        p,
+        h2 {
+          color: black;
+        }
+      </style>
+
+      <!-- jQuery -->
+      <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+      <!-- External Css -->
+      <link rel="stylesheet" href="./css/index.css" />
+    </head>
+
+    <body data-bs-spy="scroll" data-bs-target="#navbar_second">
+      <noscript>Bu web sitesi javascript'i desteklenmiyor</noscript>
+      <!-- Start Codes -->
+
+      <!-- Navbar First -->
+      <%- include('partials/navbar_first') %>
+
+      <!-- Navbar Second -->
+      <%- include('partials/navbar_second') %>
+
+      <!-- Header -->
+      <%- include('partials/header') %>
+
+      <!-- Main -->
+      <!-- main start -->
+      <main id="main">
+        <!-- section_our_work -->
+        <%- include('partials/section_our_work') %>
+        <!-- section_newspaper -->
+        <%- include('partials/section_newspaper') %>
+        <!-- section_blog -->
+        <%- include('partials/section_blog') %>
+      </main>
+      <!-- main end -->
+
+      <!-- Footer -->
+      <%- include('partials/footer') %>
+
+      <!-- end codes -->
+      <script
+        src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+        crossorigin="anonymous"
+      ></script>
+
+      <script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
+        integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
+        crossorigin="anonymous"
+      ></script>
+
+      <!-- External Js -->
+      <script src="./js/index.js"></script>
+    </body>
+  </html>
 </html>
