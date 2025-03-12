@@ -7,11 +7,13 @@ const path = require("path");
 // JSON-SERVER(DB) yolunu göstermek
 const dbFilePath = path.join(__dirname, "../db.json");
 
+/////////////////////////////////////////////////////////////////////////////////////
 // Hata Yönetimi Fonksiyonu
 const handleError = (res, message) => {
   return res.status(400).json({ error: message });
 };
 
+/////////////////////////////////////////////////////////////////////////////////////
 // JSON-SERVER(DB) VERİ OKUMA
 const readDB = () => {
   try {
@@ -22,6 +24,7 @@ const readDB = () => {
   }
 };
 
+/////////////////////////////////////////////////////////////////////////////////////
 // JSON-SERVER(DB) VERİ YAZMA
 const writeDB = (data) => {
   try {
@@ -31,6 +34,7 @@ const writeDB = (data) => {
   }
 };
 
+/////////////////////////////////////////////////////////////////////////////////////
 // BLOG OLUŞTURMA (CREATE)
 router.post("/", (req, res) => {
   try {
@@ -58,6 +62,7 @@ router.post("/", (req, res) => {
   }
 });
 
+/////////////////////////////////////////////////////////////////////////////////////
 // TÜM BLOGLARI LİSTELEME (READ)
 router.get("/", (req, res) => {
   try {
@@ -68,6 +73,7 @@ router.get("/", (req, res) => {
   }
 });
 
+/////////////////////////////////////////////////////////////////////////////////////
 // TEK BİR BLOG GETİRME (READ)
 router.get("/:id", (req, res) => {
   try {
@@ -80,6 +86,7 @@ router.get("/:id", (req, res) => {
   }
 });
 
+/////////////////////////////////////////////////////////////////////////////////////
 // BLOG GÜNCELLEME (UPDATE)
 router.put("/:id", (req, res) => {
   try {
@@ -97,6 +104,7 @@ router.put("/:id", (req, res) => {
   }
 });
 
+/////////////////////////////////////////////////////////////////////////////////////
 // BLOG SİLME (DELETE)
 router.delete("/:id", (req, res) => {
   try {
