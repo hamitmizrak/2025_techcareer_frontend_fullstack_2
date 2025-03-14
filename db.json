@@ -1,13 +1,3 @@
 {
-  "blogs": [
-    {
-      "id": 1,
-      "header": "header23",
-      "content": "content23",
-      "author": "author23",
-      "tags": "tags23",
-      "category": "Spor",
-      "createdAt": "2025-03-14T09:03:04.895Z"
-    }
-  ]
+  "blogs": []
 }

@@ -13,7 +13,17 @@ $(document).ready(function () {
   const maxCharacters = 2000;
 
   ///////////////////////////////////////////////////
-  const resetForm=()=>{}
+  // Formu Temizleyen Fonksiyon
+  const resetForm=()=>{
+    $("#header").val("");
+    $("#content").val("");
+    $("#char-count").text(`Kalan Harf sayısı: ${maxCharacters}`);
+    $("#author").val("");
+    $("#tags").val("");
+    $("#category").val("Seçiniz");
+    isUpdating= false;
+    updateId=null;
+  }
   ///////////////////////////////////////////////////
   // Hataları Temizle
   // Bu fonksiyon ile önceki hata ve başarılı mesajları ortadan kaldırır.
@@ -204,22 +214,27 @@ $(document).ready(function () {
       return;
     }
 
-    if (
-      !confirm(`${deleteId} numaralı ID'yi silmek istediğinize emin misiniz?`)
-    )
+    if (!confirm(`${deleteId} numaralı ID'yi silmek istediğinize emin misiniz?`)){
       return;
+    }else{
+      
+    }
+      
 
     $.ajax({
       url: `/blog/api/${deleteId}`,
       method: "DELETE",
       success: function (data) {
         console.log("Silme işlemi başarılı", data);
+        // Silme işleminden sonra formu temizle
+        resetForm();
         fetchBlogList();
       },
       error: function (xhr, status, error) {
         console.error("Silme işlemi başarısız:", error);
       },
     });
+
   });
 
   const fetchBlogList = () => {
