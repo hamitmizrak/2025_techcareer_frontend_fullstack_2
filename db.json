@@ -2,12 +2,23 @@
   "blogs": [
     {
       "id": 1,
-      "header": "header23",
-      "content": "content23",
-      "author": "author23",
-      "tags": "tags23",
-      "category": "Teknoloji",
-      "createdAt": "2025-03-14T10:30:51.015Z"
+      "header": "header1133",
+      "content": "quaerat qu1133",
+      "author": "author1133",
+      "tags": "tags1133",
+      "category": "Sağlık",
+      "image": "/images/kart5.jpg",
+      "createdAt": "2025-03-14T11:22:09.368Z",
+      "_csrf": "3ccQgzrh-tq86EYFLoscmOdB7518J9gGxgHU"
+    },
+    {
+      "id": 2,
+      "header": "header son",
+      "content": "content son",
+      "author": "author son",
+      "tags": "tags son",
+      "category": "Spor",
+      "createdAt": "2025-03-14T12:03:17.610Z"
     }
   ]
 }

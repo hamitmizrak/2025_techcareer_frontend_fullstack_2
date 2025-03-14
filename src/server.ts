@@ -383,7 +383,7 @@ app.use(express.static(path.join(__dirname, "../public")));
 //    response.render("index")
 // });
 
-// Blog post örnek verileri (normalde veritabanından alınır)
+// 1.YOL (dummy Code)
 // blogPosts (Dummy Code )
 const dummyCodeBlogPosts: any = [
   {
@@ -400,7 +400,7 @@ const dummyCodeBlogPosts: any = [
     content: "Bu bir blog postudur",
     //image: "https://via.placeholder.com/150"
     image: "/images/kart5.jpg",
-    date: new Date().getFullYear(),
+    createdAt: new Date().getFullYear(),
   },
   {
     id: 3,
@@ -408,7 +408,7 @@ const dummyCodeBlogPosts: any = [
     content: "Bu bir blog postudur",
     //image: "https://via.placeholder.com/150"
     image: "/images/kart5.jpg",
-    date: new Date().getFullYear(),
+    createdAt: new Date().getFullYear(),
   },
   {
     id: 4,
@@ -416,7 +416,7 @@ const dummyCodeBlogPosts: any = [
     content: "Bu bir blog postudur",
     //image: "https://via.placeholder.com/150"
     image: "/images/kart5.jpg",
-    date: new Date().getFullYear(),
+    createdAt: new Date().getFullYear(),
   },
   {
     id: 5,
@@ -424,7 +424,7 @@ const dummyCodeBlogPosts: any = [
     content: "Bu bir blog postudur",
     //image: "https://via.placeholder.com/150"
     image: "/images/kart5.jpg",
-    date: new Date().getFullYear(),
+    createdAt: new Date().getFullYear(),
   },
   {
     id: 6,
@@ -432,7 +432,7 @@ const dummyCodeBlogPosts: any = [
     content: "Bu bir blog postudur",
     //image: "https://via.placeholder.com/150"
     image: "/images/kart5.jpg",
-    date: new Date().getFullYear(),
+    createdAt: new Date().getFullYear(),
   },
   {
     id: 7,
@@ -440,18 +440,36 @@ const dummyCodeBlogPosts: any = [
     content: "Bu bir blog postudur",
     //image: "https://via.placeholder.com/150"
     image: "/images/kart5.jpg",
-    date: new Date().getFullYear(),
-  }
+    createdAt: new Date().getFullYear(),
+  },
 ];
+
+// 2.YOL (db.json)
+// Json veritabanında dosyasını oku
+// JSON veritabanı dosyasını oku
+const dbFilePath = path.join(__dirname, "../db.json");
+
+const readDB = async () => {
+  try {
+    const data = await fs.promises.readFile(dbFilePath, "utf-8");
+    return JSON.parse(data);
+  } catch (error) {
+    console.error("Veritabanı okuma hatası:", error);
+    return { blogs: [] };
+  }
+};
 
 // 📌 Ana Sayfa EJS (`views/index.ejs`) 
 // response.render => Dinamik HTML dosyasını EJS(şablonu motoru) dinamik içeriği istemciye gönderirir.
-app.get("/", (request: any, response: any) => {
+app.get("/", async  (request: any, response: any) => {
+  const db = await readDB();
   response.render("index", {
     title: "😊 Full Stack Frontend Node.js Öğreniyorum-2",
-    blogPosts: dummyCodeBlogPosts, // blogPosts değişkenini EJS şablonuna gönderiyoruz
+    //blogPosts: blogPosts, // blogPosts değişkenini EJS şablonuna gönderiyoruz
+    blogPosts: db.blogs,
   });
 });
+
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // ROUTER (Blog.ejs Sayfası)

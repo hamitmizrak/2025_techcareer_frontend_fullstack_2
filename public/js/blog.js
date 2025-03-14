@@ -14,16 +14,16 @@ $(document).ready(function () {
 
   ///////////////////////////////////////////////////
   // Formu Temizleyen Fonksiyon
-  const resetForm=()=>{
+  const resetForm = () => {
     $("#header").val("");
     $("#content").val("");
     $("#char-count").text(`Kalan Harf sayısı: ${maxCharacters}`);
     $("#author").val("");
     $("#tags").val("");
     $("#category").val("Seçiniz");
-    isUpdating= false;
-    updateId=null;
-  }
+    isUpdating = false;
+    updateId = null;
+  };
   ///////////////////////////////////////////////////
   // Hataları Temizle
   // Bu fonksiyon ile önceki hata ve başarılı mesajları ortadan kaldırır.
@@ -54,10 +54,32 @@ $(document).ready(function () {
 
   ///////////////////////////////////////////////////
   // Blog Kategorisi(Manuel ekleme)
-  // const categories = ["Teknoloji", "Spor", "Sağlık", "Eğlence", "Eğitim"];
-  // categories.forEach((category) => {
-  //   $("#category").append(`<option value="${category}">${category}</option>`);
-  // });
+  const categories = ["Teknoloji", "Spor", "Sağlık", "Eğlence", "Eğitim"];
+  categories.forEach((category) => {
+    $("#category").append(`<option value="${category}">${category}</option>`);
+  });
+
+  ///////////////////////////////////////////////////
+  // Dark mode
+  //const darkModeToggle=$('<')
+
+  // Kullanıcı Önceki seçimin göstersin
+  if(localStorage.getItem("darkMode") ==="enabled"){
+    $("body").addClass("dark-mode");
+  }
+
+  // Dark mode aç/kapat
+  $("#dark-mode-toggle").on("click", function(){
+     $("body").toggleClass("dark-mode");
+
+     // Kullanıcı tercihini Kaydet
+     if($("body").hasClass("dark-mode")){
+      localStorage.setItem("darkMode", "enabled");
+     }else{
+      localStorage.setItem("darkMode", "disabled");
+     }
+    });
+
 
   ///////////////////////////////////////////////////
   // Blog Beğenisi
@@ -74,15 +96,13 @@ $(document).ready(function () {
   });
 
   // updateLikeDislike function
-  const updateLikeDislike =(id, type) =>{
+  const updateLikeDislike = (id, type) => {
     $.ajax({
       url: `/blog/api/${id}/${type}`,
-      method:"POST",
-      success: function(){
-
-      }
-    })
-  }
+      method: "POST",
+      success: function () {},
+    });
+  };
 
   ///////////////////////////////////////////////////
   // Content(İçerik) için 2000 karakter sınırını kontrol eder.
@@ -214,12 +234,12 @@ $(document).ready(function () {
       return;
     }
 
-    if (!confirm(`${deleteId} numaralı ID'yi silmek istediğinize emin misiniz?`)){
+    if (
+      !confirm(`${deleteId} numaralı ID'yi silmek istediğinize emin misiniz?`)
+    ) {
       return;
-    }else{
-      
+    } else {
     }
-      
 
     $.ajax({
       url: `/blog/api/${deleteId}`,
@@ -234,7 +254,6 @@ $(document).ready(function () {
         console.error("Silme işlemi başarısız:", error);
       },
     });
-
   });
 
   const fetchBlogList = () => {
@@ -249,6 +268,7 @@ $(document).ready(function () {
               <td>${item.id}</td>
               <td>${item.header}</td>
               <td>${item.content}</td>
+              // <td>${item.content ? item.content.substring(0, 10) : ""}</td>
               <td>${item.author}</td>
               <td>${item.tags}</td>
               <td>${item.category || "Bilinmiyor"}</td>

@@ -9,6 +9,9 @@ Description: Blog
     --template-bg: #f9ecec;
     --template-text-color: #201f1f;
     --first-navbar-bg: #101111;
+    --dark-bg: #121212;       /*Dark mode Arka Rengi */
+    --dark-text: #e0e0e0;     /*Dark mode Metin Rengi */
+    --dark-card-bg: #e1e1e1;  /*Dark mode Kart Rengi */
     --max-width: 100%;
 
     /* Renk Tanımları */
@@ -119,6 +122,45 @@ img:hover {
 
 .line-clamp20 {
     -webkit-line-clamp: 20;
+}
+
+
+/*############################################################################################################## */
+/* #### Dark Mode ############################################################################# */
+/* #### Dark Mode#### */
+.dark-mode {
+    background-color: var(--dark-bg);
+    color:var(--dark-text)
+}
+
+.dark-mode .frosted-glass {
+    background-color: var(--dark-card-bg);
+    box-shadow: 1px 1px 1.2px 1px rgba(0,0,0,0,0.6);
+}
+
+.dark-mode a{
+    color: var(--dark-text);
+}
+
+.dark-mode .btn-primary{
+    cursor: pointer;
+}
+
+.dark-mode .btn-danger{
+    cursor: pointer;
+}
+
+.dark-mode .table{
+     background-color: var(--dark-card-bg);
+     color: var(--dark-text);
+}
+
+.dark-mode .table-hover tbody tr:hover{
+     background-color: rgba(255,255,255,0.1)
+}
+
+.dark-mode .navbar{
+     background-color: var(--dark-bg)!important;
 }
 
 /*############################################################################################################## */

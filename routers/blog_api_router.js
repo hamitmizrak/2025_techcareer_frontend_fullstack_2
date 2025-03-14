@@ -39,7 +39,7 @@ const writeDB = async (data) => {
 router.post("/", async (req, res) => {
   try {
     const { header, content, author, tags, category } = req.body;
-    if (!header || !content || !author || !tags) {
+    if (!header || !content || !author || !tags || !category) {
       return handleError(res, "Tüm alanlar gereklidir!");
     }
 

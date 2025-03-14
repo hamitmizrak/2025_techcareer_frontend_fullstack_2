@@ -9,7 +9,7 @@
           <div class="row">
                 <!-- server.ts gelen veriler -->
             <% if( typeof blogPosts !== 'undefined' && Array.isArray(blogPosts) && blogPosts.length >0) { %>
-            <% blogPosts.forEach(function(post){%>
+            <% blogPosts.slice(-6).forEach(function(post){%>
                 <!-- card-1 -->
                 <div class="col-md-4 mb-4" id="card_body">
                   <div class="card blog-card">
@@ -18,7 +18,7 @@
                       <h5 class="card-title text-center h1 text-uppercase"> <%= post.title %> </h5>
                       <p class="card-text line-clamp8">   <%= post.content ? post.content.substring(0,100) : '' %>... </p>
                       <a href="/blog/<%= post.id%>" class="btn btn-primary">Daha Fazla</a>
-                      <span><%= post.date %></span>
+                      <span class="text-muted float-end"><%= new Date(post.createdAt).toLocaleDateString('tr-TR') %></span>
                     </div> <!-- card-body -->
                   </div> <!-- card -->
                 </div> <!-- col-md-4 -->
