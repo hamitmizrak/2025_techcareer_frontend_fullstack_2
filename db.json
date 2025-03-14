@@ -1,3 +1,13 @@
 {
-  "blogs": []
+  "blogs": [
+    {
+      "id": 1,
+      "header": "header23",
+      "content": "content23",
+      "author": "author23",
+      "tags": "tags23",
+      "category": "Teknoloji",
+      "createdAt": "2025-03-14T10:30:51.015Z"
+    }
+  ]
 }

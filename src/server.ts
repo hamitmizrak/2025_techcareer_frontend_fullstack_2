@@ -384,8 +384,8 @@ app.use(express.static(path.join(__dirname, "../public")));
 // });
 
 // Blog post örnek verileri (normalde veritabanından alınır)
-// blogPosts
-const blogPosts: any = [
+// blogPosts (Dummy Code )
+const dummyCodeBlogPosts: any = [
   {
     id: 1,
     title: "Blog Post 1",
@@ -449,7 +449,7 @@ const blogPosts: any = [
 app.get("/", (request: any, response: any) => {
   response.render("index", {
     title: "😊 Full Stack Frontend Node.js Öğreniyorum-2",
-    blogPosts: blogPosts, // blogPosts değişkenini EJS şablonuna gönderiyoruz
+    blogPosts: dummyCodeBlogPosts, // blogPosts değişkenini EJS şablonuna gönderiyoruz
   });
 });
 
