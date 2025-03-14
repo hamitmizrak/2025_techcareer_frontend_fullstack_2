@@ -38,7 +38,7 @@ const writeDB = async (data) => {
 // BLOG OLUŞTURMA (CREATE)
 router.post("/", async (req, res) => {
   try {
-    const { header, content, author, tags, category } = req.body;
+    const { header, content, author, tags, category, image } = req.body;
     if (!header || !content || !author || !tags || !category) {
       return handleError(res, "Tüm alanlar gereklidir!");
     }
@@ -51,6 +51,7 @@ router.post("/", async (req, res) => {
       author,
       tags,
       category, // **Kategori eklendi**
+      image: image || "/images/kart5.jpg", // **Varsayılan resim eklendi**
       createdAt: new Date().toISOString(),
     };
 

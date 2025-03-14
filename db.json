@@ -2,23 +2,13 @@
   "blogs": [
     {
       "id": 1,
-      "header": "header1133",
-      "content": "quaerat qu1133",
-      "author": "author1133",
-      "tags": "tags1133",
-      "category": "Sağlık",
-      "image": "/images/kart5.jpg",
-      "createdAt": "2025-03-14T11:22:09.368Z",
-      "_csrf": "3ccQgzrh-tq86EYFLoscmOdB7518J9gGxgHU"
-    },
-    {
-      "id": 2,
-      "header": "header son",
-      "content": "content son",
-      "author": "author son",
-      "tags": "tags son",
+      "header": "header",
+      "content": "content",
+      "author": "author",
+      "tags": "tags",
       "category": "Spor",
-      "createdAt": "2025-03-14T12:03:17.610Z"
+      "image": "/images/kart5.jpg",
+      "createdAt": "2025-03-14T12:20:50.437Z"
     }
   ]
 }

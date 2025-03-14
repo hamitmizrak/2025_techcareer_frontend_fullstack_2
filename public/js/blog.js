@@ -54,7 +54,7 @@ $(document).ready(function () {
 
   ///////////////////////////////////////////////////
   // Blog Kategorisi(Manuel ekleme)
-  const categories = ["Teknoloji", "Spor", "Sağlık", "Eğlence", "Eğitim"];
+  const categories = ["Seçiniz","Teknoloji", "Spor", "Sağlık", "Eğlence", "Eğitim"];
   categories.forEach((category) => {
     $("#category").append(`<option value="${category}">${category}</option>`);
   });
@@ -217,7 +217,13 @@ $(document).ready(function () {
     $("#content").val(row.find("td:eq(2)").text());
     $("#author").val(row.find("td:eq(3)").text());
     $("#tags").val(row.find("td:eq(4)").text());
-    $("#category").val(row.find("td:eq(5)").text());
+    // 🔴 KATEGORİ GÜNCELLEMESİNİ DÜZELT
+    let selectedCategory = row.find("td:eq(5)").text().trim(); // Trim ile gereksiz boşlukları temizle
+    $("#category option").each(function () {
+      if ($(this).text().trim() === selectedCategory) {
+        $(this).prop("selected", true);
+      }
+    });
     isUpdating = true;
     $("#submit-btn").text("Güncelle");
 
@@ -268,7 +274,6 @@ $(document).ready(function () {
               <td>${item.id}</td>
               <td>${item.header}</td>
               <td>${item.content}</td>
-              // <td>${item.content ? item.content.substring(0, 10) : ""}</td>
               <td>${item.author}</td>
               <td>${item.tags}</td>
               <td>${item.category || "Bilinmiyor"}</td>
