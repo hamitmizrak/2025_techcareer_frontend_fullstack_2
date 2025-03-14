@@ -2,12 +2,12 @@
   "blogs": [
     {
       "id": 1,
-      "header": "header4423",
-      "content": "content4423",
-      "author": "yazar4423",
-      "tags": "tags4423",
-      "createdAt": "2025-03-11T23:26:20.550Z",
-      "_csrf": "1V3N8U8d-6lraZsSckNNPhJ0Z0ZbizNw41IM"
+      "header": "header23",
+      "content": "content23",
+      "author": "author23",
+      "tags": "tags23",
+      "category": "Spor",
+      "createdAt": "2025-03-14T09:03:04.895Z"
     }
   ]
 }

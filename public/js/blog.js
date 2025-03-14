@@ -13,6 +13,8 @@ $(document).ready(function () {
   const maxCharacters = 2000;
 
   ///////////////////////////////////////////////////
+  const resetForm=()=>{}
+  ///////////////////////////////////////////////////
   // Hataları Temizle
   // Bu fonksiyon ile önceki hata ve başarılı mesajları ortadan kaldırır.
   const clearErrors = () => {
@@ -41,11 +43,11 @@ $(document).ready(function () {
   };
 
   ///////////////////////////////////////////////////
-  // Blog Kategorisi
-  const categories = ["Teknoloji", "Spor", "Sağlık", "Eğlence", "Eğitim"];
-  categories.forEach((category) => {
-    $("#category").append(`<option value="${category}">${category}</option>`);
-  });
+  // Blog Kategorisi(Manuel ekleme)
+  // const categories = ["Teknoloji", "Spor", "Sağlık", "Eğlence", "Eğitim"];
+  // categories.forEach((category) => {
+  //   $("#category").append(`<option value="${category}">${category}</option>`);
+  // });
 
   ///////////////////////////////////////////////////
   // Blog Beğenisi
@@ -150,6 +152,7 @@ $(document).ready(function () {
       content: $("#content").val(),
       author: $("#author").val(),
       tags: $("#tags").val(),
+      category: $("#category").val(), // **Kategori Alanına Eklendi
       _csrf: $("input[name='_csrf']").val(),
     };
 
@@ -184,6 +187,7 @@ $(document).ready(function () {
     $("#content").val(row.find("td:eq(2)").text());
     $("#author").val(row.find("td:eq(3)").text());
     $("#tags").val(row.find("td:eq(4)").text());
+    $("#category").val(row.find("td:eq(5)").text());
     isUpdating = true;
     $("#submit-btn").text("Güncelle");
 

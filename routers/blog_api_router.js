@@ -38,7 +38,7 @@ const writeDB = async (data) => {
 // BLOG OLUŞTURMA (CREATE)
 router.post("/", async (req, res) => {
   try {
-    const { header, content, author, tags } = req.body;
+    const { header, content, author, tags, category } = req.body;
     if (!header || !content || !author || !tags) {
       return handleError(res, "Tüm alanlar gereklidir!");
     }
@@ -50,6 +50,7 @@ router.post("/", async (req, res) => {
       content,
       author,
       tags,
+      category, // **Kategori eklendi**
       createdAt: new Date().toISOString(),
     };
 
@@ -91,6 +92,7 @@ router.get("/:id", async (req, res) => {
 router.put("/:id", async (req, res) => {
   try {
     let db = await readDB();
+    // Güncellencek ID kontrolü
     const blogIndex = db.blogs.findIndex(
       (b) => b.id === parseInt(req.params.id)
     );
