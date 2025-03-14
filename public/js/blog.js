@@ -1,12 +1,28 @@
+// Sayfa Yüklendiğinde Çalışan Kod
+// Bu satır sayfa tamamen yüklendikten sonra kodun çalışmasını sağlar.
+// Yani sayfa yüklenmedn önce Javascript çalışmaz ve böylikle hata alınmaz
 $(document).ready(function () {
+  // Global Varaible
+  // Eğer blog güncelleniyorsa true olur eğer yeni blog ekliyorsa false
   let isUpdating = false;
+
+  // Güncellenen blogun blog ID'sini tutar
   let updateId = null;
+
+  // Blog içeriği için maksimum karakter sınırını belirler
   const maxCharacters = 2000;
 
+  ///////////////////////////////////////////////////
+  // Hataları Temizle
+  // Bu fonksiyon ile önceki hata ve başarılı mesajları ortadan kaldırır.
   const clearErrors = () => {
     $(".error-message, .valid-message").remove();
   };
 
+  ///////////////////////////////////////////////////
+  // Hataları Gösterme
+  // Eğer kullancıı formda bir hata yaparsa (boş bırakma, karakter sınırı aşma vb)
+  // gibi durumlarda hata mesajını eklemeye yarar
   const showError = (element, message) => {
     $(element).next(".error-message, .valid-message").remove();
     $(element).after(
@@ -14,6 +30,9 @@ $(document).ready(function () {
     );
   };
 
+  ///////////////////////////////////////////////////
+  // Başarılı Mesaj Gösterme
+  // Eğer kullanıcı doğru bir şekilde veri girdiyse başarılı yazısını yazsın
   const showValid = (element, message) => {
     $(element).next(".error-message, .valid-message").remove();
     $(element).after(
@@ -21,6 +40,9 @@ $(document).ready(function () {
     );
   };
 
+  ///////////////////////////////////////////////////
+  // Content(İçerik) için 2000 karakter sınırını kontrol eder.
+  // Eğer kullanıcı 2000 karakteri aşarsa hata mesajını döndersin
   const updateCharCount = () => {
     const content = $("#content").val();
     const charCount = content.length;
@@ -39,15 +61,21 @@ $(document).ready(function () {
     }
   };
 
+  ///////////////////////////////////////////////////
   $("#content").on("input", function () {
     updateCharCount();
   });
 
-  // Giriş alanlarına yazıldığında hata mesajlarını kaldır
-  $("input, textarea").on("input", function () {
+  ///////////////////////////////////////////////////
+  // Giriş alanlarına yazıldığında hata mesajalarını kaldır
+  $("#header,#content, #author, #tags").on("input", function () {
     $(this).next(".error-message").remove();
   });
 
+  ///////////////////////////////////////////////////
+  // Form Doğrula
+  // Blog gönderilmeden önce boş alanların olup olmadığını kontrol eder
+  // Exam: Header, Content, tags, author boş olmaması gerekiyor
   const validateForm = () => {
     clearErrors();
     let isValid = true;
@@ -75,6 +103,10 @@ $(document).ready(function () {
     return isValid;
   };
 
+  ///////////////////////////////////////////////////
+  // Blog Ekleme veya Güncelleme
+  // Blog eklerken POST, güncellenirken PUT isteği gönderir
+  // Ajax isteği başarılı olursa blog listesi güncellenir ve form sıfırlanır
   $("#blog-form").on("submit", function (event) {
     event.preventDefault();
     if (!validateForm()) {
@@ -125,6 +157,8 @@ $(document).ready(function () {
     console.log("Güncellenen ID:", updateId);
   });
 
+  ///////////////////////////////////////////////////
+  // Blog Silme ve uyarı
   $("#blog-table tbody").on("click", ".delete-btn", function () {
     const deleteId = $(this).closest("tr").data("id");
 
