@@ -41,6 +41,38 @@ $(document).ready(function () {
   };
 
   ///////////////////////////////////////////////////
+  // Blog Kategorisi
+  const categories = ["Teknoloji", "Spor", "Sağlık", "Eğlence", "Eğitim"];
+  categories.forEach((category) => {
+    $("#category").append(`<option value="${category}">${category}</option>`);
+  });
+
+  ///////////////////////////////////////////////////
+  // Blog Beğenisi
+  // Like
+  $("#blog-table tbody").on("click", ".like-btn", function () {
+    const blogId = $(this).closest("tr").data("id");
+    updateLikeDislike(blogId, "like");
+  });
+
+  // Dislike
+  $("#blog-table tbody").on("click", ".dislike-btn", function () {
+    const blogId = $(this).closest("tr").data("id");
+    updateLikeDislike(blogId, "dislike");
+  });
+
+  // updateLikeDislike function
+  const updateLikeDislike =(id, type) =>{
+    $.ajax({
+      url: `/blog/api/${id}/${type}`,
+      method:"POST",
+      success: function(){
+
+      }
+    })
+  }
+
+  ///////////////////////////////////////////////////
   // Content(İçerik) için 2000 karakter sınırını kontrol eder.
   // Eğer kullanıcı 2000 karakteri aşarsa hata mesajını döndersin
   const updateCharCount = () => {
@@ -138,6 +170,7 @@ $(document).ready(function () {
     $.ajax(ajaxOptions);
   });
 
+  // EDIT
   $("#blog-table tbody").on("click", ".edit-btn", function () {
     const row = $(this).closest("tr");
     updateId = row.data("id");
@@ -199,6 +232,9 @@ $(document).ready(function () {
               <td>${item.content}</td>
               <td>${item.author}</td>
               <td>${item.tags}</td>
+              <td>${item.category || "Bilinmiyor"}</td>
+              <td>${item.like || 0} <button class="like-btn btn-primary">😉</button></td>
+              <td>${item.dislike || 0} <button class="dislike-btn btn-primary">😡</button></td>
               <td>${item.createdAt}</td>
               <td>
                 <button class="btn btn-warning btn-sm edit-btn">Düzenle</button>
@@ -214,6 +250,7 @@ $(document).ready(function () {
     });
   };
 
+  // Eklenen veya Güncellenen veriyi listlesin.
   fetchBlogList();
   updateCharCount();
 });
